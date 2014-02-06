@@ -1,5 +1,5 @@
 #!/usr/bin/env rackup
-#\ -p 60080
+#\ -o 0.0.0.0 -p 60080
 # encoding: utf-8
 
 # This file can be used to start Padrino,

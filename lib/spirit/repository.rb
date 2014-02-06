@@ -17,19 +17,19 @@ module Spirit
               'arguments' => [
                   '-o',
                   'nobrowse',
-                  '%s://%s:%s@%s%s' % uri.scheme, username, password, uri.hostname, uri.path,
+                  '%s://%s:%s@%s%s' % [uri.scheme, username, password, uri.hostname, uri.path],
                   '/tmp/DSMasterMount'
               ],
-              'command' => mount_command
+              'command' => '/sbin/mount_afp'
           },
           'mount_command' => {
               'arguments' => [
                   '-o',
                   'nobrowse',
-                  '%s://%s:%s@%s%s' % uri.scheme, username, password, uri.hostname, uri.path,
+                  '%s://%s:%s@%s%s' % [uri.scheme, username, password, uri.hostname, uri.path],
                   '/tmp/DSNetworkRepository'
               ],
-              'command' => mount_command
+              'command' => '/sbin/mount_afp'
           },
           'path_to_master_mount_point' => '/tmp/DSMasterMount',
           'path_to_master_repository' => '/tmp/DSMasterMount',
@@ -41,10 +41,10 @@ module Spirit
               'arguments' => [
                   '-o',
                   'nobrowse',
-                  '%s://%s:%s@%s%s' % uri.scheme, username, password, uri.hostname, uri.path,
+                  '%s://%s:%s@%s%s' % [uri.scheme, username, password, uri.hostname, uri.path],
                   '/tmp/DSTemporaryMount'
               ],
-              'command' => mount_command
+              'command' => '/sbin/mount_afp'
           },
           'type' => 'localtoserver',
           'url' => uri.to_s

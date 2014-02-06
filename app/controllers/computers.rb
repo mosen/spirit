@@ -67,7 +67,7 @@ Spirit::App.controllers :computers do
               'dstudio-disabled' => 'NO', # (?)
               'dstudio-group' => 'Default',
               'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-              'dstudio-host-primary-key' => settings.computers_primary_key,
+              'dstudio-host-primary-key' => settings.server['repository']['hostPrimaryKey'],
               'dstudio-host-serial-number' => sn,
               'dstudio-hostname' => computer_prefix + '3',
               'dstudio-users' => [
@@ -94,7 +94,7 @@ Spirit::App.controllers :computers do
               'dstudio-disabled' => 'NO', # (?)
               'dstudio-group' => 'Default',
               'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-              'dstudio-host-primary-key' => settings.computers_primary_key,
+              'dstudio-host-primary-key' => settings.server['repository']['hostPrimaryKey'],
               'dstudio-host-serial-number' => id,
               'dstudio-hostname' => computer_prefix + '3',
               'dstudio-users' => [
@@ -164,6 +164,9 @@ Spirit::App.controllers :computers do
   post '/status/set/entry' do
     serial = params[:id]
     tag = params[:tag] # Indicates the `type` of info posted (aka category)
+
+    logger.info "Received status update for tag: %s" % tag
+    logger.info @request_payload
 
   end
 

@@ -8,3 +8,4 @@ vendor/gems/*
 db/*.db
 .*.sw*
 ds_repo/*
+app/config/spirit.yml

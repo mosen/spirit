@@ -39,7 +39,7 @@ server: # This structure mimics the DS server config
   repository:
     hostPrimaryKey: 'dstudio-host-serial-number'
     mountOptions: ''
-    password: 'password'
+    password: 'deploystudiopassword'
     subFolder: ''
     url: 'afp://hostname/ds_repo'
     user: 'deploystudiouser'
