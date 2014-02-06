@@ -128,6 +128,8 @@ Spirit::App.controllers :computers do
     groups_native = CFPropertyList.native_types(groups_plist.value)
 
     default_group = {
+        # TODO: _dss_default isn't always the right key, example: delete group settings and restart from PrefPane
+        # the key will be `Default`
         'default' => groups_native['_dss_default']['dstudio-group-default-group-name']
     }
 

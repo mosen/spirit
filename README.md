@@ -14,6 +14,10 @@ in favour of osx infrastructure that is bound to non-virtualised apple hardware 
 - Install `ruby` if you haven't already.
 - Install `bundler`
 - Run `bundle install` from this directory to deal with Gem dependencies.
+- Run the rake task to create a repository (or copy yours from DS)
+
+        $ rake spirit:repo
+
 - You can run `rackup` from this directory to run a temporary test service.
 
 ## API Reference
@@ -41,8 +45,11 @@ Replicate storage method for those.
 + Use an actual authentication source that is user configurable.
 + Configuration profiles (does nothing)
 + Activity list (does nothing)
-+ Computer list (does nothing)
-    + Create group.settings.plist describing default group settings, use a template
+    + Use some db or in-memory persistence to track computer status. Maybe redis but
+    consider not adding too many deps.
++ Computer list
+    + get/entry?populate=YES should use the group parameters as defaults, and should call `Spirit::Computer.create`
+    + Create group.settings.plist describing default group settings, use a template __DONE__
 + Logs (does nothing)
 + Files (does nothing)
 + Replica (does nothing)
@@ -56,6 +63,7 @@ Replicate storage method for those.
     - Size reported is incorrect.
     - Write Info.plist whenever /get/all index is created.
     - Bundles such as pkg/mpkg are not flattened.
+    - Write Info.plist containing package index
 + Configuration stored locally in format similar or identical to DS
     - Multicast config
     - Notifications config

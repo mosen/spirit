@@ -8,11 +8,6 @@ module Spirit
     register Padrino::Helpers
     register Sinatra::ConfigFile
 
-    # TODO: Actual authentication implementation
-    use Rack::Auth::Basic do |username, password|
-      username == 'admin' && password == 'secret'
-    end
-
     # Requests may come from anywhere
     set :protection, false
     set :protect_from_csrf, false
@@ -23,6 +18,24 @@ module Spirit
     # Augment configuration with generated paths
     configure do
       set :repo_path, File.absolute_path(settings.repository_root)
+    end
+
+    if !File.exists?(settings.repo_path)
+      raise "You cannot start Spirit without a repository"
+    end
+
+    if !File.exists? (File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist'))
+      logger.info "Databases/ByHost/group.settings.plist does not exist in your repo... creating one"
+
+      FileUtils.cp(
+          File.absolute_path('templates/group.settings.plist'),
+          File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist')
+      )
+    end
+
+    # TODO: Actual authentication implementation
+    use Rack::Auth::Basic do |username, password|
+      username == settings.username && password == settings.password
     end
 
     # TODO: middleware that checks Content-Type text/xml and attempts to parse request like this

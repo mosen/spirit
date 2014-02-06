@@ -11,6 +11,12 @@ version: '1.6.3'
 # Our version number, prefixed with the DS server version it emulates
 spirit_version: '1.6.3.1'
 
+
+# Admin credentials - Eventually this will tie into some actual authentication
+# service
+username: 'admin'
+password: 'secret'
+
 server: # This structure mimics the DS server config
   multicast:
     address: '224.77.2.77'
