@@ -33,9 +33,14 @@ module Spirit
 
           full_path = File.join(@path, entry)
 
-          computer = CFPropertyList::List.new(:file => full_path)
-          computer_hash = CFPropertyList.native_types(computer.value)
-          computers['computers'][computer_hash[@primary_key]] = computer_hash
+          begin
+            computer = CFPropertyList::List.new(:file => full_path)
+            computer_hash = CFPropertyList.native_types(computer.value)
+            computers['computers'][computer_hash[@primary_key]] = computer_hash
+          rescue Exception => e
+            logger.debug e.message
+            next
+          end
         end
 
 
