@@ -1,4 +1,4 @@
-require 'CFPropertyList'
+require 'cfpropertylist'
 require_relative 'plist_model'
 
 module Spirit

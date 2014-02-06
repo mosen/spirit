@@ -26,7 +26,7 @@
 #- /computers/set/entry
 #- /computers/status/set/entry
 
-require 'CFPropertyList'
+require 'cfpropertylist'
 require_relative '../../lib/spirit/computer'
 
 Spirit::App.controllers :computers do
