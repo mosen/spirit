@@ -6,10 +6,10 @@ class HostStatuses
   property :serial, String
   property :IPv4, String
   property :MACAddress, String
-  property :diskImageConversion, Bool
+  property :diskImageConversion, Boolean
   property :hostname, String
   property :identifier, String
-  property :multicastStream, Bool
-  property :online, Bool
+  property :multicastStream, Boolean
+  property :online, Boolean
   property :dialogDescription, String
 end
