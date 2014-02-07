@@ -49,68 +49,25 @@ Spirit::App.controllers :computers do
   get '/get/entry' do
     populate = params[:populate]
 
-    # TODO: Read from group setting
-    computer_prefix = 'spirit' # Computer name prefix
-
     if populate == 'yes'
       sn = params[:sn] # client serial
       mac = params[:mac] # client eth id
 
-      # computer number  = computer key + 1
-      #computer = Computers.create sn, mac
-      computer = {
-          sn => {
-              'cn' => '3', # Computer number?
-              'dstudio-auto-disable' => 'NO', # (?) Disable auto start
-              'dstudio-auto-reset-workflow' => 'NO', # (?
-              'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
-              'dstudio-disabled' => 'NO', # (?)
-              'dstudio-group' => 'Default',
-              'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-              'dstudio-host-primary-key' => settings.server['repository']['hostPrimaryKey'],
-              'dstudio-host-serial-number' => sn,
-              'dstudio-hostname' => computer_prefix + '3',
-              'dstudio-users' => [
-                  {
-                      'dstudio-user-admin-status' => 'YES',
-                      'dstudio-user-hidden-status' => 'NO',
-                      'dstudio-user-name' => 'Administrator',
-                      'dstudio-user-password' => 'CIPHERGOESHERE',
-                      'dstudio-user-shortname' => 'admin'
-                  }
-              ]
-          }
-      }
+      computer_hash = Spirit::Computer.create(sn, mac)
+
+      response = { sn => computer_hash }
+
     else
       id = params[:id] # computer primary key
-      pk = params[:pk] # primary key (serial "sn" or ethernet id "?")
+      pk = params[:pk] # primary key (serial "sn" or ethernet id "mac")
 
-      computer = {
-          id => {
-              'cn' => '3', # Computer number?
-              'dstudio-auto-disable' => 'NO', # (?) Disable auto start
-              'dstudio-auto-reset-workflow' => 'NO', # (?
-              'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
-              'dstudio-disabled' => 'NO', # (?)
-              'dstudio-group' => 'Default',
-              'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-              'dstudio-host-primary-key' => settings.server['repository']['hostPrimaryKey'],
-              'dstudio-host-serial-number' => id,
-              'dstudio-hostname' => computer_prefix + '3',
-              'dstudio-users' => [
-                  {
-                      'dstudio-user-admin-status' => 'YES',
-                      'dstudio-user-hidden-status' => 'NO',
-                      'dstudio-user-name' => 'Administrator',
-                      'dstudio-user-password' => 'CIPHERGOESHERE',
-                      'dstudio-user-shortname' => 'admin'
-                  }
-              ]
-          }
+      computer = Spirit::Computer.new pk, id
+      response = {
+          id => computer.to_hash
       }
     end
 
-    computer.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
   end
 
   # Get a list of computer groups
@@ -156,7 +113,10 @@ Spirit::App.controllers :computers do
   post '/set/entry' do
     serial = params[:id]
 
+    request.body.rewind
 
+    computer = Spirit::Computer.new 'sn', serial # TODO: Use primary key setting from config instead of "sn" literal
+    computer.contents= request.body.read
   end
 
 # DeployStudio Runtime POSTs status about its running state.

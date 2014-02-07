@@ -11,7 +11,10 @@ module Spirit
       @path = File.join(self.class.path, name+@ext)
     end
 
-
+    def to_hash
+      plist = CFPropertyList::List.new(:file => @path)
+      CFPropertyList.native_types(plist.value)
+    end
 
   end
 

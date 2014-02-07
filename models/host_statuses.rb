@@ -13,3 +13,6 @@ class HostStatuses
   property :online, Boolean
   property :dialogDescription, String
 end
+
+
+

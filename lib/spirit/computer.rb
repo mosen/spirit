@@ -10,20 +10,6 @@ module Spirit
       attr_accessor :template # Template for new computers
       attr_accessor :primary_key # DeployStudio Primary key (serial or eth id)
 
-      @template = {
-        'cn' => '', # Computer ID, generated dynamically
-        'dstudio-auto-disable' => 'NO', # (?) Disable auto start
-        'dstudio-auto-reset-workflow' => 'NO', # (?
-        'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
-        'dstudio-disabled' => 'NO', # (?)
-        'dstudio-group' => 'Default',
-        'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-        'dstudio-host-primary-key' => '',
-        'dstudio-host-serial-number' => '',
-        'dstudio-hostname' => '', # Group prefix + ID
-        'dstudio-users' => []
-      }
-
       def all
         computers = { 'groups' => {}, 'computers' => {} }
 
@@ -51,14 +37,42 @@ module Spirit
       end
 
       def create(serial, eth_id)
+        template = {
+            'cn' => '', # Computer ID, generated dynamically
+            'dstudio-auto-disable' => 'NO', # (?) Disable auto start
+            'dstudio-auto-reset-workflow' => 'NO', # (?
+            'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
+            'dstudio-disabled' => 'NO', # (?)
+            'dstudio-group' => 'Default',
+            'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
+            'dstudio-host-primary-key' => '',
+            'dstudio-host-serial-number' => '',
+            'dstudio-hostname' => '', # Group prefix + ID
+            'dstudio-users' => []
+        }
 
+        computer = template.clone
+        computer['cn'] = '1' # TODO: Generate dynamically
+        computer['dstudio-host-primary-key'] = @primary_key
+        computer['dstudio-host-serial-number'] = serial
+        computer['dstudio-mac-addr'] = eth_id
+        computer['dstudio-hostname'] = 'spirit1' # TODO: Generate dynamically
+        # dstudio-group = from group.settings where default=yes
+        # dstudio-users = from group.settings
+
+        computer
       end
 
     end
 
+    attr_accessor :primary_key
+    attr_accessor :id
 
-    def groups
+    def initialize(primary_key, id)
+      super(id)
 
+      @primary_key = primary_key # "sn" or "mac"
+      @id = id
     end
 
   end

@@ -6,7 +6,7 @@ Spirit::App.controllers :workflows do
   # Runtime will request this with the groups key indicating the group of the machine running the workflow
   get '/get/all' do
     client_serial = params[:id]
-    groups = params[:groups]
+    groups = params[:groups] # If computer is not part of a group, value will be "(null)"
 
     workflows = Spirit::Workflow.all_dict
 
