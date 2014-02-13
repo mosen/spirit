@@ -9,7 +9,6 @@ describe '/scripts' do
 
   describe '/get/all' do
     before do
-      authorize "admin", "secret"
       get '/scripts/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -27,7 +26,6 @@ describe '/scripts' do
 
   describe '/get/entry' do
     before do
-      authorize "admin", "secret"
       get '/scripts/get/entry', { 'id' => 'mock.sh' }
     end
 
@@ -40,7 +38,6 @@ describe '/scripts' do
 
   describe '/set/entry' do
     before do
-      authorize "admin", "secret"
       post '/scripts/set/entry', { 'id' => 'mock_post.sh' } # TODO: contents in post body
     end
 

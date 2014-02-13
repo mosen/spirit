@@ -9,7 +9,6 @@ describe '/configuration' do
 
   describe '/get/repository' do
     before do
-      authorize "admin", "secret"
       get '/configuration/get/repository', { 'client_ip' => '127.0.0.1' }
     end
 

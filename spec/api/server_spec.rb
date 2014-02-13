@@ -9,7 +9,6 @@ describe '/server' do
 
   describe '/get/stats' do
     before do
-      authorize "admin", "secret"
       get '/server/get/stats', { 'id' => 'W1111GTM4QQ' }
     end
 

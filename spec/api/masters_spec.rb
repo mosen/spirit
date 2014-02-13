@@ -9,7 +9,6 @@ describe '/masters' do
 
   describe '/get/all?keywords=HFS' do
     before do
-      authorize "admin", "secret"
       get '/masters/get/all', { 'keywords' => 'HFS' }
     end
 

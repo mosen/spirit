@@ -9,7 +9,6 @@ describe '/user' do
 
   describe '/get/credentials' do
     before do
-      authorize "admin", "secret"
       get '/user/get/credentials', { 'uid' => 'admin' }
     end
 

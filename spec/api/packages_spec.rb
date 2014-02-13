@@ -9,7 +9,6 @@ describe '/packages' do
 
   describe '/sets/new/entry' do
     before do
-      authorize "admin", "secret"
       post '/packages/sets/new/entry'
     end
 
@@ -18,7 +17,6 @@ describe '/packages' do
 
   describe '/sets/get/all' do
     before do
-      authorize "admin", "secret"
       get '/packages/sets/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -27,7 +25,6 @@ describe '/packages' do
 
   describe '/sets/get/entry' do
     before do
-      authorize "admin", "secret"
       get '/packages/sets/get/entry', { 'id' => 'MockPackageSet' }
     end
 
@@ -36,7 +33,6 @@ describe '/packages' do
 
   describe '/sets/ren/entry?id=&new_id=' do
     before do
-      authorize "admin", "secret"
       post '/packages/sets/ren/entry', { 'id' => 'MockPackageSet', 'new_id' => 'MockRenamedPackageSet' }
     end
 
@@ -45,7 +41,6 @@ describe '/packages' do
 
   describe '/sets/add/entry?id=&pkg= (add package to set)' do
     before do
-      authorize "admin", "secret"
       post '/packages/sets/add/entry', { 'id' => 'MockPackageSet', 'pkg' => 'Mock.pkg' }
     end
 
@@ -54,7 +49,6 @@ describe '/packages' do
 
   describe '/get/all' do
     before do
-      authorize "admin", "secret"
       get '/packages/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -63,7 +57,6 @@ describe '/packages' do
 
   describe '/get/entry' do
     before do
-      authorize "admin", "secret"
       get '/packages/get/entry', { 'id' => 'MockPackageSet' }
     end
 

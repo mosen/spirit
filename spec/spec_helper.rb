@@ -7,6 +7,10 @@ RSpec.configure do |conf|
   conf.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  conf.before(:all) do
+    authorize 'admin', 'secret'
+  end
 end
 
 # You can use this method to custom specify a Rack app

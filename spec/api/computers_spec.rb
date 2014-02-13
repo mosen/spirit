@@ -9,7 +9,6 @@ describe '/computers' do
 
   describe '/get/all' do
     before do
-      authorize "admin", "secret"
       get '/computers/get/all'
     end
 
@@ -33,7 +32,6 @@ describe '/computers' do
   # Create a new computers entry
   describe '/get/entry?populate=yes' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/get/entry', { 'sn' => 'W1111GTM4QQ', 'mac' => '00:11:C0:FF:EE', 'populate' => 'yes' }
     end
 
@@ -43,7 +41,6 @@ describe '/computers' do
 
   describe '/get/entry?id=&pk=sn' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/get/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' }
     end
 
@@ -52,7 +49,6 @@ describe '/computers' do
 
   describe '/groups/get/all' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/groups/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -61,7 +57,6 @@ describe '/computers' do
 
   describe '/groups/get/default' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/groups/get/default', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -70,7 +65,6 @@ describe '/computers' do
 
   describe '/groups/get/entry?id=' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/groups/get/entry', { 'id' => 'MockGroup' }
     end
 
@@ -80,14 +74,12 @@ describe '/computers' do
   # Set computer information from runtime
   describe '/set/entry?id=' do
     before do
-      authorize 'admin', 'secret'
       post '/computers/set/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' } # TODO: post body
     end
   end
 
   describe '/status/get/all' do
     before do
-      authorize 'admin', 'secret'
       get '/computers/status/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 

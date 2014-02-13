@@ -9,14 +9,12 @@ describe '/logs' do
 
   describe '/set/entry' do
     before do
-      authorize "admin", "secret"
       post '/logs/set/entry', { 'id' => 'W1111GTM4QQ' } # TODO: post body
     end
   end
 
   describe '/rotate/entry' do
     before do
-      authorize "admin", "secret"
       post '/logs/rotate/entry', { 'id' => 'W1111GTM4QQ' }
     end
 
