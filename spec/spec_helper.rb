@@ -4,6 +4,9 @@ require 'rack/test'
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
+  conf.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
 end
 
 # You can use this method to custom specify a Rack app

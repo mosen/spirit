@@ -36,7 +36,9 @@ Spirit::App.controllers :computers do
     serial = params[:id]
 
     computers = Spirit::Computer.all
-    computers.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    computers_plist = computers.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+
+    [200, { 'Content-Type' => 'text/xml' }, computers_plist]
   end
 
   # Get or create a computer object
