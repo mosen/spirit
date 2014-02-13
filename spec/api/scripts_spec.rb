@@ -25,4 +25,26 @@ describe '/scripts' do
     end
   end
 
+  describe '/get/entry' do
+    before do
+      authorize "admin", "secret"
+      get '/scripts/get/entry', { 'id' => 'mock.sh' }
+    end
+
+    it_behaves_like 'an xml plist response'
+
+    it 'contains a script key' do
+      expect(plist_hash['script']).to be
+    end
+  end
+
+  describe '/set/entry' do
+    before do
+      authorize "admin", "secret"
+      post '/scripts/set/entry', { 'id' => 'mock_post.sh' } # TODO: contents in post body
+    end
+
+    it_behaves_like 'an xml plist post'
+  end
+
 end

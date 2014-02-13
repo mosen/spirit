@@ -22,4 +22,22 @@ describe '/workflows' do
 
   end
 
+  describe '/get/entry?id=' do
+    before do
+      authorize "admin", "secret"
+      get '/workflows/get/entry', { 'id' => 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEFFFFFFFF' }
+    end
+
+    it_behaves_like 'an xml plist response'
+  end
+
+  describe '/set/entry?id=' do
+    before do
+      authorize "admin", "secret"
+      post '/workflows/set/entry', { 'id' => 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEFFFFFFFF' } # TODO: workflow plist in post body
+    end
+
+    it_behaves_like 'an xml plist post'
+  end
+
 end

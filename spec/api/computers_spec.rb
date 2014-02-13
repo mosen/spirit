@@ -41,6 +41,50 @@ describe '/computers' do
 
   end
 
+  describe '/get/entry?id=&pk=sn' do
+    before do
+      authorize 'admin', 'secret'
+      get '/computers/get/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' }
+    end
+
+    it_behaves_like 'an xml plist response'
+  end
+
+  describe '/groups/get/all' do
+    before do
+      authorize 'admin', 'secret'
+      get '/computers/groups/get/all', { 'id' => 'W1111GTM4QQ' }
+    end
+
+    it_behaves_like 'an xml plist response'
+  end
+
+  describe '/groups/get/default' do
+    before do
+      authorize 'admin', 'secret'
+      get '/computers/groups/get/default', { 'id' => 'W1111GTM4QQ' }
+    end
+
+    it_behaves_like 'an xml plist response'
+  end
+
+  describe '/groups/get/entry?id=' do
+    before do
+      authorize 'admin', 'secret'
+      get '/computers/groups/get/entry', { 'id' => 'MockGroup' }
+    end
+
+    it_behaves_like 'an xml plist response'
+  end
+
+  # Set computer information from runtime
+  describe '/set/entry?id=' do
+    before do
+      authorize 'admin', 'secret'
+      post '/computers/set/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' } # TODO: post body
+    end
+  end
+
   describe '/status/get/all' do
     before do
       authorize 'admin', 'secret'

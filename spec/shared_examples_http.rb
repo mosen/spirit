@@ -1,6 +1,10 @@
 require 'cfpropertylist'
 
 shared_examples 'an xml plist response' do
+  let (:plist_hash) {
+    plist = CFPropertyList::List.new(:data => last_response.body)
+    CFPropertyList.native_types(plist.value)
+  }
 
   it 'has a HTTP response status of 200 ok' do
     expect(last_response.status).to eq(200)

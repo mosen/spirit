@@ -15,10 +15,16 @@ Spirit::App.controllers :packages do
   get '/get/entry' do
     set_name = params[:id]
 
-    entry = {}
-    entry[set_name] = Spirit::Package.all_dict[set_name]
+    all_packages = Spirit::Package.all_dict
 
-    entry.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    if all_packages.has_key? set_name
+      entry = {
+          set_name => all_packages[set_name]
+      }
+      entry.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    else
+      404
+    end
   end
 
   # Get package sets
@@ -68,13 +74,13 @@ Spirit::App.controllers :packages do
   # Create a package set (Usually invoked by the plus button corresponding to sets)
   # Creates a new directory with a number `Package Set 1`
   post '/sets/new/entry' do
-    Package.create_set
+    Spirit::Package.create_set
     201
   end
 
   # Rename a package set
   post '/sets/ren/entry' do
-    Package.rename_set(params[:id], params[:new_id])
+    Spirit::Package.rename_set(params[:id], params[:new_id])
     201
   end
 
