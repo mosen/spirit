@@ -38,7 +38,7 @@ Spirit::App.controllers :computers do
     computers = Spirit::Computer.all
     computers_plist = computers.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
 
-    [200, { 'Content-Type' => 'text/xml' }, computers_plist]
+    computers_plist
   end
 
   # Get or create a computer object

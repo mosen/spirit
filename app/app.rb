@@ -57,6 +57,8 @@ module Spirit
 
         @request_payload = CFPropertyList.native_types(post_plist.value)
       end
+
+      content_type 'text/xml;charset=utf8'
     end
 
     require_relative '../lib/spirit/master'
