@@ -1,5 +1,6 @@
+require 'yaml'
 require 'cfpropertylist'
-require "sinatra/config_file"
+require 'sinatra/config_file'
 
 module Spirit
   class App < Padrino::Application
@@ -13,11 +14,18 @@ module Spirit
     set :protect_from_csrf, false
     set :allow_disabled_csrf, false
 
+    # Configuration comes in two parts: Spirit config and DeployStudio native config
+    # This ensures that my implementation isn't mixed with the native configuration.
     config_file 'config/spirit.yml'
+
+    ds_configuration_file = File.join(__dir__, 'config', 'server.yml')
+    ds_configuration = YAML.load(File.read(ds_configuration_file))
 
     # Augment configuration with generated paths
     configure do
       set :repo_path, File.absolute_path(settings.repository_root)
+      set :server, ds_configuration
+      set :server_config_path, ds_configuration_file
     end
 
     if !File.exists?(settings.repo_path)

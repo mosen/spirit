@@ -11,44 +11,7 @@ version: '1.6.3'
 # Our version number, prefixed with the DS server version it emulates
 spirit_version: '1.6.3.1'
 
-
 # Admin credentials - Eventually this will tie into some actual authentication
 # service
 username: 'admin'
 password: 'secret'
-
-server: # This structure mimics the DS server config
-  multicast:
-    address: '224.77.2.77'
-    firstPort: '7800'
-    interface: 'en0'
-    maximumDataRatePerStream: '8'
-    minimumClientDataRate: '15'
-    reconvertBeforeScanning: 'NO'
-    simultaneousStreams: '4'
-    ttl: '3'
-  notifications:
-    TLS: false
-    includeLogs: false
-    level: 'none'
-    login: ''
-    password: ''
-    recipients:
-    sender: ''
-    smtp: ''
-  repository:
-    hostPrimaryKey: 'dstudio-host-serial-number'
-    mountOptions: ''
-    password: 'deploystudiopassword'
-    subFolder: ''
-    url: 'afp://hostname/ds_repo'
-    user: 'deploystudiouser'
-  role: 'master'
-  security:
-    adminGroup: ''
-    assistantGroup: ''
-    interface: 'any'
-    port: '60080'
-    rejectUnknownComputers: 'NO'
-    sslKey: ''
-  version: 1.0 # No relation to DeployStudio Version

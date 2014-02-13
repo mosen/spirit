@@ -46,8 +46,7 @@ Spirit::App.controllers :server do
 
     response = {
         'keys' => [
-            'com.deploystudio.server',
-            'Server Fallback SSL Certificate'
+          'Spirit cannot set SSL certificates'
         ]
     }
 

@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative '../../lib/spirit/repository'
 
 Spirit::App.controllers :configuration do
@@ -23,6 +24,12 @@ Spirit::App.controllers :configuration do
   # Set server configuration from DeployStudio Assistant
   post '/set' do
     logger.info @request_payload
-    500 # Not implemented
+
+    configuration_yaml = @request_payload.to_yaml
+    File.open(settings.server_config_path, 'w') do |f|
+      f.write configuration_yaml
+    end
+
+    201
   end
 end
