@@ -40,6 +40,8 @@ gem 'padrino', '0.11.4'
 # Sinatra-contrib for YAML config
 gem 'sinatra-contrib', '1.4.2'
 
-
 # Required for parsing and constructing plists
 gem 'CFPropertyList'
+
+# To run RSpec against padrino
+gem 'rspec-padrino'

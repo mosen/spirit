@@ -33,7 +33,7 @@ server: # This structure mimics the DS server config
     level: 'none'
     login: ''
     password: ''
-    recipients:
+    recipients: []
     sender: ''
     smtp: ''
   repository:

@@ -39,7 +39,8 @@ Spirit::App.controllers :server do
 
   # This normally enumerates certificates available in the keychain
   # DeployStudio installs its own com.deploystudio.server certificate and private key
-  # Our equivalent would depend on whether the service was being provided through nginx or apache
+  # Our equivalent would depend on whether the service was being provided through nginx or apache.
+  # This is also responsible for giving the admin choices on which certificate to secure the service with.
   # TODO: User configuration specifies SSL Certificates
   get '/keys/get/all' do
 

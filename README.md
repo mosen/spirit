@@ -71,3 +71,6 @@ Replicate storage method for those.
     - Role
     - Security config
     - Version
++ Server configuration via DeployStudio Assistant
+    - SSL options will not be honored, I cannot enumerate certificates because you could be using any httpd
+    - Store server config outside of spirit.yml

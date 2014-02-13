@@ -4,7 +4,7 @@ Spirit::App.controllers :configuration do
 
   # Dump server configuration for the admin client
   get '/get' do
-    settings.server.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    settings.server.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: false)
   end
 
   # Get repository info and mount command
@@ -20,7 +20,9 @@ Spirit::App.controllers :configuration do
     repo_hash.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
   end
 
+  # Set server configuration from DeployStudio Assistant
   post '/set' do
+    logger.info @request_payload
     500 # Not implemented
   end
 end
