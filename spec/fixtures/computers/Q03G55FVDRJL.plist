@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>architecture</key>
+	<string>i386</string>
+	<key>cn</key>
+	<string>spirit1</string>
+	<key>dstudio-auto-disable</key>
+	<string>NO</string>
+	<key>dstudio-auto-reset-workflow</key>
+	<string>NO</string>
+	<key>dstudio-bootcamp-windows-computer-name</key>
+	<string>spirit1</string>
+	<key>dstudio-disabled</key>
+	<string>NO</string>
+	<key>dstudio-editing-context</key>
+	<array>
+		<string>dstudio-disabled</string>
+		<string>dstudio-auto-started-workflow</string>
+		<string>dstudio-auto-started-workflow-script</string>
+	</array>
+	<key>dstudio-group</key>
+	<string>Default</string>
+	<key>dstudio-host-model-identifier</key>
+	<string>MacBookPro8,2</string>
+	<key>dstudio-host-new-network-location</key>
+	<string>NO</string>
+	<key>dstudio-host-primary-key</key>
+	<string>dstudio-host-serial-number</string>
+	<key>dstudio-host-serial-number</key>
+	<string>Q03G55FVDRJL</string>
+	<key>dstudio-host-type</key>
+	<string>Mac</string>
+	<key>dstudio-hostname</key>
+	<string>spirit1</string>
+	<key>dstudio-last-workflow</key>
+	<string>3FB08B14-B290-4839-8056-1E3BC75171A7</string>
+	<key>dstudio-last-workflow-duration</key>
+	<string>0:00:11</string>
+	<key>dstudio-last-workflow-execution-date</key>
+	<string>2014/02/07, 11:33:37</string>
+	<key>dstudio-last-workflow-status</key>
+	<string>completed</string>
+	<key>dstudio-mac-addr</key>
+	<string>3c:07:65:11:ac:22</string>
+	<key>dstudio-users</key>
+	<array/>
+</dict>
+</plist>

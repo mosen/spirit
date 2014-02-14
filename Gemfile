@@ -45,3 +45,6 @@ gem 'CFPropertyList'
 
 # To run RSpec against padrino
 gem 'rspec-padrino'
+
+# Generate RSpec fixtures
+gem 'factory_girl'

@@ -40,6 +40,8 @@ GEM
       dm-core (~> 1.2.0)
     do_sqlite3 (0.10.13)
       data_objects (= 0.10.13)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
     fastercsv (1.5.5)
     http_router (0.11.0)
       rack (>= 1.0.0)
@@ -145,6 +147,7 @@ DEPENDENCIES
   dm-timestamps
   dm-types
   dm-validations
+  factory_girl
   padrino (= 0.11.4)
   rake
   rspec-padrino

@@ -1,9 +1,11 @@
 PADRINO_ENV = 'test' unless defined?(PADRINO_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require 'rack/test'
+require 'factory_girl'
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
+  conf.include FactoryGirl::Syntax::Methods
   conf.expect_with :rspec do |c|
     c.syntax = :expect
   end
