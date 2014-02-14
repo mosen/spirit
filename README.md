@@ -74,3 +74,8 @@ Replicate storage method for those.
 + Server configuration via DeployStudio Assistant
     - SSL options will not be honored, I cannot enumerate certificates because you could be using any httpd
     - Store server config outside of spirit.yml
+    - Set listen port numbers
+    - Reject computers not defined in computers list.
+    - Honor assistant and admin group memberships.
+    - Spirit needs ability to decode the password set by DS Assistant for the repo in order to supply it to the runtime.
+    - Spirit does not re-read configuration after DS Assistant runs.

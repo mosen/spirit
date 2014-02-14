@@ -18,8 +18,12 @@ module Spirit
         end
 
         files.each do |filename|
-          plist = CFPropertyList::List.new(:file => File.join(@path, filename))
-          workflows[filename] = CFPropertyList.native_types(plist.value)
+          begin
+            plist = CFPropertyList::List.new(:file => File.join(@path, filename))
+            workflows[filename] = CFPropertyList.native_types(plist.value)
+          rescue NoMethodError
+            next
+          end
         end
 
         workflows
