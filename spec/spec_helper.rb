@@ -10,6 +10,7 @@ RSpec.configure do |conf|
 
   conf.before(:all) do
     authorize 'admin', 'secret'
+    header 'User-Agent', 'DeployStudio%20Admin/130904 CFNetwork/596.5 Darwin/12.5.0 (x86_64) (iMac10%2C1)'
   end
 end
 
