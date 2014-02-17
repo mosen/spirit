@@ -68,9 +68,12 @@ module Spirit
     require_relative '../lib/spirit/workflow'
     require_relative '../lib/spirit/copy_file'
     require_relative '../lib/spirit/computer'
+    require_relative '../lib/spirit/computer_group'
 
     Computer.path = File.join(settings.repo_path, 'Databases', 'ByHost')
     Computer.primary_key = settings.server['repository']['hostPrimaryKey']
+
+    ComputerGroup.groups_plist = File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist')
 
     Master.path = File.join(settings.repo_path, 'Masters')
     Package.path = File.join(settings.repo_path, 'Packages')

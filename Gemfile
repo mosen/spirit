@@ -48,3 +48,6 @@ gem 'rspec-padrino'
 
 # Generate RSpec fixtures
 gem 'factory_girl'
+
+# Fake the repository
+gem 'fakefs', require: "fakefs/safe"

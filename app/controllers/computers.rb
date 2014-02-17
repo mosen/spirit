@@ -1,33 +1,6 @@
-# Computers
-#
-# Combines retrieval and storage of information about computers that have contacted the service,
-# Group information, and Current computer activity.
-#
-# GET:
-#
-#- /computers/get/all
-#- /computers/get/entry
-#- /computers/groups/get/all
-#- /computers/groups/get/default
-#- /computers/groups/get/entry
-#- /computers/status/get/all
-#
-# POST:
-#
-#- /computers/del/entries
-#- /computers/del/entry
-#- /computers/groups/del/default
-#- /computers/groups/del/entry
-#- /computers/groups/new/entry
-#- /computers/groups/ren/entry
-#- /computers/groups/set/default
-#- /computers/groups/set/entry
-#- /computers/import/entries
-#- /computers/set/entry
-#- /computers/status/set/entry
-
 require 'cfpropertylist'
 require_relative '../../lib/spirit/computer'
+require_relative '../../lib/spirit/computer_group'
 
 Spirit::App.controllers :computers do
 
@@ -74,23 +47,24 @@ Spirit::App.controllers :computers do
 
   # Get a list of computer groups
   get '/groups/get/all' do
-    groups_plist = CFPropertyList::List.new(:file => settings.group_settings)
-    groups_native = CFPropertyList.native_types(groups_plist.value)
+    groups = Spirit::ComputerGroup.all
 
-    groups = { 'groups' => groups_native.keys }
-    groups.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    group_names = { 'groups' => groups.keys }
+    group_names.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
   end
 
   # Get the default group name
   get '/groups/get/default' do
-    groups_plist = CFPropertyList::List.new(:file => settings.group_settings)
-    groups_native = CFPropertyList.native_types(groups_plist.value)
 
-    default_group = {
-        # TODO: _dss_default isn't always the right key, example: delete group settings and restart from PrefPane
-        # the key will be `Default`
-        'default' => groups_native['_dss_default']['dstudio-group-default-group-name']
-    }
+    begin
+      groups = Spirit::ComputerGroup.all
+
+      default_group = {
+          'default' => groups_native['_dss_default']['dstudio-group-default-group-name']
+      }
+    rescue
+      default_group = { 'default' => '' }
+    end
 
     default_group.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
   end
@@ -99,11 +73,49 @@ Spirit::App.controllers :computers do
   get '/groups/get/entry' do
     group_name = params[:id]
 
-    groups_plist = CFPropertyList::List.new(:file => settings.group_settings)
-    groups_native = CFPropertyList.native_types(groups_plist.value)
+    groups = Spirit::ComputerGroup.all
 
-    group_entry = groups_native.member?(group_name) ? groups_native[group_name] : {}
-    group_entry.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    if groups.member? group_name
+      result = {
+          group_name => groups[group_name]
+      }
+    else
+      result = {}
+    end
+
+    result.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+  end
+
+  post '/groups/del/entry' do
+    group_name = params[:id]
+
+    Spirit::ComputerGroup.delete group_name
+
+    201
+  end
+
+  post '/groups/new/entry' do
+    Spirit::ComputerGroup.create
+
+    201
+  end
+
+  post '/groups/ren/entry' do
+    group_name_from = params[:id]
+    group_name_to = params[:new_id]
+
+    Spirit::ComputerGroup.rename group_name_from, group_name_to
+
+    201
+  end
+
+  post '/groups/set/entry' do
+    group_name = params[:id]
+
+    group = Spirit::ComputerGroup.new group_name
+    group.contents = @request_payload
+
+    201
   end
 
   # Get current status of all computers

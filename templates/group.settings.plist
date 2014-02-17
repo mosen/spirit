@@ -83,6 +83,11 @@
 		<key>dstudio-xsan-license</key>
 		<string></string>
 	</dict>
+    <key>MockGroup</key>
+    <dict>
+        <key>dstudio-group-name</key>
+        <string>MockGroup</string>
+    </dict>
 	<key>_dss_default</key>
 	<dict>
 		<key>dstudio-group-default-group-name</key>

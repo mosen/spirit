@@ -42,6 +42,7 @@ GEM
       data_objects (= 0.10.13)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
+    fakefs (0.5.0)
     fastercsv (1.5.5)
     http_router (0.11.0)
       rack (>= 1.0.0)
@@ -148,6 +149,7 @@ DEPENDENCIES
   dm-types
   dm-validations
   factory_girl
+  fakefs
   padrino (= 0.11.4)
   rake
   rspec-padrino
