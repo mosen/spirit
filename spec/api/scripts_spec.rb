@@ -33,6 +33,14 @@ describe '/scripts' do
     end
   end
 
+  describe '/del/entry' do
+
+  end
+
+  describe '/ren/entry' do
+
+  end
+
   describe '/set/entry' do
     before do
       post '/scripts/set/entry', { 'id' => 'mock_post.sh' } # TODO: contents in post body

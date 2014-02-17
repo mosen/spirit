@@ -4,10 +4,16 @@ require 'cfpropertylist'
 
 describe '/logs' do
 
-  describe '/set/entry' do
-    before do
-      post '/logs/set/entry', { 'id' => 'W1111GTM4QQ' } # TODO: post body
-    end
+  describe '/get/entry' do
+
+  end
+
+  describe '/append/entry' do
+
+  end
+
+  describe '/del/entry' do
+
   end
 
   describe '/rotate/entry' do
@@ -17,5 +23,12 @@ describe '/logs' do
 
     it_behaves_like 'an xml plist post'
   end
+
+  describe '/set/entry' do
+    before do
+      post '/logs/set/entry', { 'id' => 'W1111GTM4QQ' } # TODO: post body
+    end
+  end
+
 
 end

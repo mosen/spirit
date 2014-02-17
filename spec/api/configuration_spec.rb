@@ -4,6 +4,10 @@ require 'cfpropertylist'
 
 describe '/configuration' do
 
+  describe '/get' do
+
+  end
+
   describe '/get/repository' do
     before do
       get '/configuration/get/repository', { 'client_ip' => '127.0.0.1' }
@@ -15,6 +19,10 @@ describe '/configuration' do
     }
 
     it_behaves_like 'an xml plist response'
+
+  end
+
+  describe '/set' do
 
   end
 

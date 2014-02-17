@@ -4,6 +4,14 @@ require 'cfpropertylist'
 
 describe '/server' do
 
+  describe '/get/date' do
+
+  end
+
+  describe '/get/info' do
+
+  end
+
   describe '/get/stats' do
     before do
       get '/server/get/stats', { 'id' => 'W1111GTM4QQ' }
@@ -39,6 +47,18 @@ describe '/server' do
     it 'contains a workflows counter' do
       expect(plist_hash['workflows']).to be
     end
+  end
+
+  describe '/groups/get' do
+
+  end
+
+  describe '/groups/get/all' do
+
+  end
+
+  describe '/keys/get/all' do
+
   end
 
 end

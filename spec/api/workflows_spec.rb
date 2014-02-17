@@ -9,13 +9,7 @@ describe '/workflows' do
       get '/workflows/get/all', { 'id' => 'W1111GTM4QQ', 'groups' => '(null)' }
     end
 
-    let (:plist_hash) {
-      plist = CFPropertyList::List.new(:data => last_response.body)
-      CFPropertyList.native_types(plist.value)
-    }
-
     it_behaves_like 'an xml plist response'
-
   end
 
   describe '/get/entry?id=' do
@@ -24,6 +18,14 @@ describe '/workflows' do
     end
 
     it_behaves_like 'an xml plist response'
+  end
+
+  describe '/del/entry' do
+
+  end
+
+  describe '/dup/entry' do
+
   end
 
   describe '/set/entry?id=' do

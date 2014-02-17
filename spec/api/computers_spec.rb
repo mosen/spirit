@@ -4,6 +4,7 @@ require 'shared_contexts'
 
 describe '/computers' do
 
+  # Get an index of computers
   describe '/get/all' do
     before do
       get '/computers/get/all'
@@ -67,38 +68,6 @@ describe '/computers' do
     it_behaves_like 'an xml plist response'
   end
 
-  describe '/groups/get/all' do
-    before do
-      get '/computers/groups/get/all', { 'id' => 'W1111GTM4QQ' }
-    end
-
-    it_behaves_like 'an xml plist response'
-
-    context 'with the plist result' do
-      include_context 'with parsed plist response'
-
-      it 'contains a key `groups`' do
-        expect(plist_hash).to have_key('groups')
-      end
-
-    end
-  end
-
-  describe '/groups/get/default' do
-    before do
-      get '/computers/groups/get/default', { 'id' => 'W1111GTM4QQ' }
-    end
-
-    it_behaves_like 'an xml plist response'
-  end
-
-  describe '/groups/get/entry?id=' do
-    before do
-      get '/computers/groups/get/entry', { 'id' => 'MockGroup' }
-    end
-
-    it_behaves_like 'an xml plist response'
-  end
 
   # Set computer information from runtime
   describe '/set/entry?id=' do
@@ -112,36 +81,16 @@ describe '/computers' do
     # TODO: verify that respository plist is identical to set plist
   end
 
-  describe '/status/get/all' do
-    before do
-      get '/computers/status/get/all', { 'id' => 'W1111GTM4QQ' }
-    end
+  describe '/del/entries' do
 
-    it_behaves_like 'an xml plist response'
-
-    context 'with the plist result' do
-
-    end
   end
 
-  describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
-    before do
-      post '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation', { 'id' => 'W1111GTM4QQ', 'tag' => 'DSRemoteStatusHostInformation' }
-    end
+  describe '/del/entry' do
 
-    it 'creates a status entry for the mock status update' do
-      # TODO: query for mock status
-    end
   end
 
-  describe '/status/set/entry?tag=DSRemoteStatusWorkflowsInformation' do
-    before do
-      post '/computers/status/set/entry', { 'id' => 'W1111GTM4QQ', 'tag' => 'DSRemoteStatusWorkflowsInformation' }
-    end
+  describe '/import/entries' do
 
-    it 'creates a workflow status entry for the mock status update' do
-      # TODO: query for mock status
-    end
   end
 
 end
