@@ -9,15 +9,14 @@ describe '/scripts' do
       get '/scripts/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
-    let (:plist_hash) {
-      plist = CFPropertyList::List.new(:data => last_response.body)
-      CFPropertyList.native_types(plist.value)
-    }
-
     it_behaves_like 'an xml plist response'
 
-    it 'contains a scripts array' do
-      expect(plist_hash['scripts']).to be_instance_of(Array)
+    context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
+      it 'contains a scripts array' do
+        expect(plist_hash['scripts']).to be_instance_of(Array)
+      end
     end
   end
 
@@ -28,8 +27,12 @@ describe '/scripts' do
 
     it_behaves_like 'an xml plist response'
 
-    it 'contains a script key' do
-      expect(plist_hash['script']).to be
+    context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
+      it 'contains a script key' do
+        expect(plist_hash['script']).to be
+      end
     end
   end
 

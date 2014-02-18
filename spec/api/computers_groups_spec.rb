@@ -7,8 +7,6 @@ GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/B
 
 describe '/computers/groups', fakefs: true do
   def stub_groups
-
-
     FileUtils.mkdir_p File.dirname(GROUP_SETTINGS_PATH)
     File.open File.expand_path(GROUP_SETTINGS_PATH), 'w' do |f|
       f.write(@group_settings_default)
