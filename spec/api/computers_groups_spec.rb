@@ -13,10 +13,12 @@ describe '/computers/groups', fakefs: true do
     end
   end
 
+  before(:each) do
+    stub_groups
+  end
+
   describe '/get/all' do
     before do
-      stub_groups
-
       get '/computers/groups/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
@@ -53,7 +55,6 @@ describe '/computers/groups', fakefs: true do
 
   describe '/get/entry?id=' do
     before do
-      stub_groups
       get '/computers/groups/get/entry', { 'id' => 'MockGroup' }
     end
 
@@ -71,21 +72,23 @@ describe '/computers/groups', fakefs: true do
   # The `default` checkbox is unticked
   describe '/del/default' do
     before do
-      stub_groups
       post '/computers/groups/del/default', { 'id' => 'MockGroup' }
     end
 
     it_behaves_like 'an xml plist post'
 
-    it 'removes the default option from `MockGroup`' do
+    it 'removes the default group key `_dss_default`' do
+      plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
+      groups = CFPropertyList.native_types(plist.value)
 
+      expect(groups).to_not have_key('_dss_default')
     end
   end
+
 
   # Remove a computer group
   describe '/del/entry' do
     before do
-      stub_groups
       post '/computers/groups/del/entry', { 'id' => 'MockGroup' }
     end
 
@@ -102,7 +105,6 @@ describe '/computers/groups', fakefs: true do
   # Plus button is clicked, so a group named `Group N` is created where N = N+1
   describe '/new/entry' do
     before do
-      stub_groups
       post '/computers/groups/new/entry'
     end
 
@@ -127,7 +129,6 @@ describe '/computers/groups', fakefs: true do
   # Double-click and rename group
   describe '/ren/entry' do
     before do
-      stub_groups
       post '/computers/groups/ren/entry', { 'id' => 'MockGroup', 'new_id' => 'MockGroupRenamed' }
     end
 
@@ -150,8 +151,13 @@ describe '/computers/groups', fakefs: true do
 
     it_behaves_like 'an xml plist post'
 
-    it 'sets the default group to `MockGroup`' do
+    it 'sets the default group value to `MockGroup`' do
+      plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
+      groups = CFPropertyList.native_types(plist.value)
 
+      expect(groups).to have_key('_dss_default')
+      expect(groups['_dss_default']).to have_key('dstudio-group-default-group-name')
+      expect(groups['_dss_default']['dstudio-group-default-group-name']).to eq('MockGroup')
     end
 
   end
@@ -159,14 +165,19 @@ describe '/computers/groups', fakefs: true do
   # Update group detail
   describe '/set/entry' do
     before do
-      stub_groups
-      post '/computers/groups/set/entry?id=MockGroup', '<key>test</key><string>testValue</string>'
+      group_content_plist = { 'test' => 'value' }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'Content-Type' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'an xml plist post'
 
     it 'sets the contents of the key `MockGroup` in the group settings to the posted plist' do
-      # TODO
+      plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
+      groups = CFPropertyList.native_types(plist.value)
+
+      expect(groups).to have_key('MockGroup')
+      expect(groups['MockGroup']).to have_key('test')
+      expect(groups['MockGroup']['test']).to eq('value')
     end
 
   end

@@ -118,6 +118,25 @@ Spirit::App.controllers :computers do
     201
   end
 
+  post '/groups/del/default' do
+    group_name = params[:id]
+
+    # TODO: does not verify that the `id` parameter was the default group that we want
+    # to delete
+
+    Spirit::ComputerGroup.delete '_dss_default'
+    201
+  end
+
+  post '/groups/set/default' do
+    group_name = params[:id]
+
+    group = Spirit::ComputerGroup.new '_dss_default'
+    group.contents = { 'dstudio-group-default-group-name' => group_name, 'dstudio-group-name' => '_dss_default' }
+
+    201
+  end
+
   # Get current status of all computers
   get '/status/get/all' do
     {}.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
@@ -151,5 +170,19 @@ Spirit::App.controllers :computers do
     computer.contents = request.body.read
 
     201
+  end
+
+  post '/del/entries' do
+    if @request_payload.member? 'ids'
+
+      @request_payload['ids'].each do |id|
+        computer = Spirit::Computer.new id
+        Spirit::Computer.delete(computer)
+      end
+      201
+    else
+      400
+    end
+
   end
 end
