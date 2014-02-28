@@ -166,7 +166,7 @@ describe '/computers/groups', fakefs: true do
   describe '/set/entry' do
     before do
       group_content_plist = { 'test' => 'value' }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
-      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'Content-Type' => 'text/xml;charset=utf8' }
+      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'an xml plist post'

@@ -4,6 +4,7 @@ require 'shared_contexts'
 require 'cfpropertylist'
 
 COMPUTER_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/W1111GTM4QQ.plist')
+GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/group.settings.plist')
 
 describe '/computers', fakefs: true do
   def stub_groups
@@ -140,10 +141,12 @@ describe '/computers', fakefs: true do
     end
   end
 
+  # NOTE: Does not get called when removing a computer from DS. Unsure of when this will get called.
   describe '/del/entry' do
 
   end
 
+  # Post concated computers
   describe '/import/entries' do
 
   end

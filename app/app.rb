@@ -50,12 +50,17 @@ module Spirit
     before do # Set plist object on @request_payload if request content was text/xml
       if request.media_type == 'text/xml' && request.content_length
         request.body.rewind
-        post_plist = CFPropertyList::List.new({
-            format: CFPropertyList::List::FORMAT_XML,
-            data: request.body.read
-        })
 
-        @request_payload = CFPropertyList.native_types(post_plist.value)
+        begin
+          post_plist = CFPropertyList::List.new({
+              format: CFPropertyList::List::FORMAT_XML,
+              data: request.body.read
+          })
+
+          @request_payload = CFPropertyList.native_types(post_plist.value)
+        rescue
+          logger.warn 'Request could not be parsed as a Property List!'
+        end
       end
 
       content_type 'text/xml;charset=utf8'
