@@ -98,9 +98,69 @@ describe '/computers', fakefs: true do
         expect(File.exists?(COMPUTER_MOCK_PATH)).to be_true
       end
 
-      it 'inherits settings from the default group' do
-        # TODO: Resultant plist should contain inherited settings of the default group
+      it 'sets the group property to the default group' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Default')
       end
+
+      it 'inherits the group prefix for the cn (computer name)' do
+        expect(plist_hash['W1111GTM4QQ']['cn']).to start_with('mockgrp')
+      end
+
+      it 'creates a computer number in the series specified by the group setting' do
+
+      end
+
+      it 'inherits the setting `Disable computer after successful execution`' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-auto-disable']).to eq('YES')
+      end
+
+      it 'inherits the setting `Reset default workflow after a successful execution`' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-auto-reset-workflow']).to eq('YES')
+      end
+
+      it 'inherits the group prefix for the boot camp computer name' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-bootcamp-windows-computer-name']).to start_with('MOCKGRP')
+      end
+
+
+      it 'inherits the os x server key setting' do
+
+      end
+
+      it 'inherits the xsan 1.x key setting' do
+
+      end
+
+      it 'inherits the boot camp serial number setting' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-bottcamp-windows-product-key']).to eq('THISI-SAWIN-DOWSP-RODUC-TKEY0')
+      end
+
+      it 'inherits the array of client management computer groups' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-clientmanagement-computer-groups']).to be_instance_of(Array)
+        expect(plist_hash['W1111GTM4QQ']['dstudio-clientmanagement-computer-groups']).to include('mock-wgm-group')
+      end
+
+      it 'inherits the group custom properties' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties']).to be_instance_of(Array)
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]).to be_instance_of(Hash)
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-key']).to eq('DSCP_1')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-label']).to eq('Custom Property 1')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-value']).to eq('value')
+      end
+
+      it 'inherits the setting `delete locations`' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-delete-other-locations']).to eq('YES')
+      end
+
+      it 'inherits the default network interface setting' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-first-interface']).to eq('en0')
+      end
+
+      it 'inherits the created network location' do
+
+      end
+
+
     end
   end
 
