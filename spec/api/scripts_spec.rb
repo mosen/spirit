@@ -2,7 +2,20 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
-describe '/scripts' do
+SCRIPTS_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Scripts')
+SCRIPT_MOCK_CONTENT = "#!/bin/sh\n"
+
+describe '/scripts', fakefs: true do
+  def stub_scripts
+    FileUtils.mkdir_p SCRIPTS_MOCK_PATH
+    File.open(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'), 'w') do |f|
+      f.write SCRIPT_MOCK_CONTENT
+    end
+  end
+
+  before(:each) do
+    stub_scripts
+  end
 
   describe '/get/all' do
     before do
@@ -32,21 +45,39 @@ describe '/scripts' do
 
       it 'contains a script key' do
         expect(plist_hash['script']).to be
+        expect(plist_hash['script']).to eq(SCRIPT_MOCK_CONTENT)
       end
     end
   end
 
   describe '/del/entry' do
+    before do
+      post '/scripts/del/entry', { 'id' => 'mock.sh' }
+    end
 
+    it_behaves_like 'an xml plist post'
+
+    it 'removes the mock script' do
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
+    end
   end
 
   describe '/ren/entry' do
+    before do
+      post '/scripts/ren/entry', { 'id' => 'mock.sh', 'newid' => 'mock_renamed.sh' }
+    end
 
+    it_behaves_like 'an xml plist post'
+
+    it 'renames the mock script' do
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock_renamed.sh'))).to be_true
+    end
   end
 
   describe '/set/entry' do
     before do
-      post '/scripts/set/entry', { 'id' => 'mock_post.sh' } # TODO: contents in post body
+      post '/scripts/set/entry?id=mock_post.sh', { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML), { 'Content-Type' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'an xml plist post'

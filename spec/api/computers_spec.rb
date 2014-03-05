@@ -132,7 +132,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'inherits the boot camp serial number setting' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-bottcamp-windows-product-key']).to eq('THISI-SAWIN-DOWSP-RODUC-TKEY0')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-bootcamp-windows-product-key']).to eq('THISI-SAWIN-DOWSP-RODUC-TKEY0')
       end
 
       it 'inherits the array of client management computer groups' do
