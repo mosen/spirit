@@ -9,14 +9,14 @@ GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/B
 describe '/computers', fakefs: true do
   def stub_groups
     FileUtils.mkdir_p File.dirname(GROUP_SETTINGS_PATH)
-    File.open File.expand_path(GROUP_SETTINGS_PATH), 'w' do |f|
+    File.open GROUP_SETTINGS_PATH, 'w' do |f|
       f.write(@group_settings_default)
     end
   end
 
   def stub_computers
     FileUtils.mkdir_p File.dirname(COMPUTER_MOCK_PATH)
-    File.open File.expand_path(COMPUTER_MOCK_PATH), 'w' do |f|
+    File.open COMPUTER_MOCK_PATH, 'w' do |f|
       computer = {
         'architecture' => 'i386',
         'cn' => 'spirit1',
@@ -87,6 +87,10 @@ describe '/computers', fakefs: true do
     it_behaves_like 'an xml plist response'
 
     context 'with the plist result' do
+      # Although this doesnt really test functionality, it provides me with a reference for
+      # all of the keys that need to be populated on a new computer account, and makes sure that
+      # i'm generating SOME value in the response.
+
       include_context 'with parsed plist response'
 
       it 'contains one key equal to the serial number' do
@@ -98,8 +102,11 @@ describe '/computers', fakefs: true do
         expect(File.exists?(COMPUTER_MOCK_PATH)).to be_true
       end
 
-      it 'sets the group property to the default group' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Default')
+      # Group setting inheritance
+      # Examples in the order of the plist response given by DS
+
+      it 'contains an architecture' do
+        expect(plist_hash['W1111GTM4QQ']['architecture']).to be
       end
 
       it 'inherits the group prefix for the cn (computer name)' do
@@ -107,8 +114,9 @@ describe '/computers', fakefs: true do
       end
 
       it 'creates a computer number in the series specified by the group setting' do
-
+        # This doesn't seem to be set in the DS settings plist.
       end
+
 
       it 'inherits the setting `Disable computer after successful execution`' do
         expect(plist_hash['W1111GTM4QQ']['dstudio-auto-disable']).to eq('YES')
@@ -120,15 +128,6 @@ describe '/computers', fakefs: true do
 
       it 'inherits the group prefix for the boot camp computer name' do
         expect(plist_hash['W1111GTM4QQ']['dstudio-bootcamp-windows-computer-name']).to start_with('MOCKGRP')
-      end
-
-
-      it 'inherits the os x server key setting' do
-
-      end
-
-      it 'inherits the xsan 1.x key setting' do
-
       end
 
       it 'inherits the boot camp serial number setting' do
@@ -148,6 +147,19 @@ describe '/computers', fakefs: true do
         expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-value']).to eq('value')
       end
 
+      it 'contains a disabled property' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-disabled']).to eq('NO')
+      end
+
+      it 'sets the group property to the default group' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Default')
+      end
+
+      # TODO: where is this set in the UI?
+      it 'contains a host ard ignore empty fields property' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-ard-ignore-empty-fields']).to be
+      end
+
       it 'inherits the setting `delete locations`' do
         expect(plist_hash['W1111GTM4QQ']['dstudio-host-delete-other-locations']).to eq('YES')
       end
@@ -156,11 +168,81 @@ describe '/computers', fakefs: true do
         expect(plist_hash['W1111GTM4QQ']['dstudio-host-first-interface']).to eq('en0')
       end
 
-      it 'inherits the created network location' do
+      it 'inherits an interface definition for interface en0' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-interfaces']).to be_instance_of(Hash)
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-interfaces']).to have_key('en0')
 
+        first_interface = plist_hash['W1111GTM4QQ']['dstudio-host-interfaces']['en0']
+
+        expect(first_interface['dstudio-dns-ips']).to eq('8.8.8.8')
+        expect(first_interface['dstudio-host-airport']).to eq('NO')
+        expect(first_interface['dstudio-host-airport-name']).to eq('')
+        expect(first_interface['dstudio-host-airport-password']).to eq('')
+        expect(first_interface['dstudio-host-auto-config-proxy']).to eq('YES')
+        expect(first_interface['dstudio-host-auto-config-proxy-url']).to eq('http://somewhere/something.pac')
+        expect(first_interface['dstudio-host-auto-discovery-proxy']).to eq('YES')
+        expect(first_interface['dstudio-host-ftp-proxy']).to eq('YES')
+        expect(first_interface['dstudio-host-ftp-proxy-port']).to eq(2112)
+        expect(first_interface['dstudio-host-ftp-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-http-proxy']).to eq('YES')
+        expect(first_interface['dstudio-host-http-proxy-port']).to eq(8080)
+        expect(first_interface['dstudio-host-http-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-https-proxy']).to eq('YES')
+        expect(first_interface['dstudio-host-https-proxy-port']).to eq(8443)
+        expect(first_interface['dstudio-host-https-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-interfaces']).to eq('en0') # TODO: not sure if this is comma delimited with multiple interfaces
+        expect(first_interface['dstudio-host-ip']).to eq('10.1.2.2')
+        expect(first_interface['dstudio-router-ip']).to eq('10.1.2.255')
+        expect(first_interface['dstudio-search-domains']).to eq('spirit.mosen')
+        expect(first_interface['dstudio-subnet-mask']).to eq('255.255.255.0')
       end
 
+      it 'inherits the network location name' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-location']).to eq('Mock Location')
+      end
 
+      it 'inherits the boolean value to create a new network location' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-new-network-location']).to eq('YES')
+      end
+
+      it 'inherits the primary key setting' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-primary-key']).to eq('dstudio-host-serial-number')
+      end
+
+      it 'sets the primary key to the value given in the request' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-serial-number']).to eq('W1111GTM4QQ')
+      end
+
+      it 'inherits the hostname prefix' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-hostname']).to start_with('MOCKHOST')
+      end
+
+      it 'inherits the os x server key setting' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-serial-number']).to eq('mock-serial-number|mock-reg-user|mock-reg-org')
+      end
+
+      it 'inherits the local users list' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users']).to be_instance_of(Array)
+
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-admin-status')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-admin-status']).to eq('YES')
+
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-hidden-status')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-hidden-status']).to eq('YES')
+
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-name')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-name']).to eq('Mock User Name')
+
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-password')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-password']).to be
+
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-shortname')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-shortname']).to eq('mockuser')
+      end
+
+      it 'inherits the xsan 1.x key setting' do
+        expect(plist_hash['W1111GTM4QQ']['dstudio-xsan-license']).to eq('mock-xsan-serial|mock-reg-user|mock-reg-org')
+      end
     end
   end
 
