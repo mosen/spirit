@@ -155,9 +155,9 @@ describe '/computers', fakefs: true do
         expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Group 1')
       end
 
-      # TODO: where is this set in the UI?
       it 'contains a host ard ignore empty fields property' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-host-ard-ignore-empty-fields']).to be
+        # Ignores ARD Computer Info #1,2,3,4 fields if empty.
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-ard-ignore-empty-fields']).to eq('NO')
       end
 
       it 'inherits the setting `delete locations`' do
@@ -176,24 +176,24 @@ describe '/computers', fakefs: true do
 
         expect(first_interface['dstudio-dns-ips']).to eq('10.0.0.200')
         expect(first_interface['dstudio-host-airport']).to eq('NO')
-        expect(first_interface['dstudio-host-airport-name']).to eq('')
-        expect(first_interface['dstudio-host-airport-password']).to eq('')
+        #expect(first_interface['dstudio-host-airport-name']).to eq('')
+        #expect(first_interface['dstudio-host-airport-password']).to eq('')
         expect(first_interface['dstudio-host-auto-config-proxy']).to eq('YES')
         expect(first_interface['dstudio-host-auto-config-proxy-url']).to eq('http://somewhere/something.pac')
         expect(first_interface['dstudio-host-auto-discovery-proxy']).to eq('YES')
         expect(first_interface['dstudio-host-ftp-proxy']).to eq('YES')
-        expect(first_interface['dstudio-host-ftp-proxy-port']).to eq(2112)
-        expect(first_interface['dstudio-host-ftp-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-ftp-proxy-port']).to eq('2112')
+        expect(first_interface['dstudio-host-ftp-proxy-server']).to eq('10.0.0.3')
         expect(first_interface['dstudio-host-http-proxy']).to eq('YES')
-        expect(first_interface['dstudio-host-http-proxy-port']).to eq(8080)
-        expect(first_interface['dstudio-host-http-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-http-proxy-port']).to eq('8080')
+        expect(first_interface['dstudio-host-http-proxy-server']).to eq('10.0.0.3')
         expect(first_interface['dstudio-host-https-proxy']).to eq('YES')
-        expect(first_interface['dstudio-host-https-proxy-port']).to eq(8443)
-        expect(first_interface['dstudio-host-https-proxy-server']).to eq('10.1.2.3')
+        expect(first_interface['dstudio-host-https-proxy-port']).to eq('8443')
+        expect(first_interface['dstudio-host-https-proxy-server']).to eq('10.0.0.3')
         expect(first_interface['dstudio-host-interfaces']).to eq('en0') # TODO: not sure if this is comma delimited with multiple interfaces
-        expect(first_interface['dstudio-host-ip']).to eq('10.1.2.2')
-        expect(first_interface['dstudio-router-ip']).to eq('10.1.2.255')
-        expect(first_interface['dstudio-search-domains']).to eq('spirit.mosen')
+        expect(first_interface['dstudio-host-ip']).to eq('10.0.0.0')
+        expect(first_interface['dstudio-router-ip']).to eq('10.0.0.254')
+        expect(first_interface['dstudio-search-domains']).to eq('spirit.com')
         expect(first_interface['dstudio-subnet-mask']).to eq('255.255.255.0')
       end
 
@@ -249,12 +249,19 @@ describe '/computers', fakefs: true do
   # Get a single entry with key (id) given primary key (pk)
   describe '/get/entry?id=&pk=sn' do
     before do
+      puts File.exists? COMPUTER_MOCK_PATH
       get '/computers/get/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' }
     end
 
     # TODO: test ethernet ID as primary key
 
     it_behaves_like 'an xml plist response'
+
+    context 'with the plist result' do
+      include_context 'with parsed plist response'
+
+    end
+
   end
 
 
@@ -295,7 +302,7 @@ describe '/computers', fakefs: true do
 
   end
 
-  # Post concated computers
+  # TODO: Post concated computers, needs fixture
   describe '/import/entries' do
 
   end

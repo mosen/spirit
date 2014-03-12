@@ -1,6 +1,7 @@
 require 'cfpropertylist'
 require_relative '../../lib/spirit/computer'
 require_relative '../../lib/spirit/computer_group'
+require_relative '../../models/host_status'
 
 Spirit::App.controllers :computers do
 
@@ -169,6 +170,16 @@ Spirit::App.controllers :computers do
 
     logger.info "Received status update for tag: %s" % tag
     logger.info @request_payload
+
+    if tag == 'DSRemoteStatusHostInformation'
+      # insert/update host status info
+
+      HostStatus.create @request_payload
+    end
+
+    if tag == 'DSRemoteStatusWorkflowsInformation'
+      # insert/update workflow step progress
+    end
 
   end
 

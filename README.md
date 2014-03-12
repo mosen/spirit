@@ -71,6 +71,7 @@ Replicate storage method for those.
 
 + in get/entry?populate=YES, `Spirit::Computer.create` should cause the computer to inherit settings from any group
 marked as default.
++ Newly populated computer records do not respect the group setting for starting integer and number precision.
 + Mock plist fails in RSpec examples.
 + Incomplete tests.
 + Most actions assume that the serial number is the primary key, when it should be determined based upon the

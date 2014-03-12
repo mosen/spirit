@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'shared_contexts'
 
+STATUS_WAITING_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/waiting.plist'))
+
 describe '/computers/status' do
 
   describe '/status/get/all' do
@@ -18,7 +20,11 @@ describe '/computers/status' do
 
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
     before do
-      post '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation', { 'id' => 'W1111GTM4QQ', 'tag' => 'DSRemoteStatusHostInformation' }
+      post(
+          '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+          STATUS_WAITING_PLIST,
+          { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      )
     end
 
     it 'creates a status entry for the mock status update' do

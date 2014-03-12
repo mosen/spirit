@@ -61,7 +61,8 @@ module Spirit
             'dstudio-host-primary-key' => @primary_key,
             'dstudio-hostname' => inherit_values['dstudio-hostname'] + (computer_count+1).to_s,
             'dstudio-mac-addr' => eth_id,
-            'dstudio-host-serial-number' => serial
+            'dstudio-host-serial-number' => serial,
+            'dstudio-host-ard-ignore-empty-fields' => 'NO' # Cannot be inherited
           }
 
           if inherit_values.has_key?('dstudio-bootcamp-windows-computer-name')
@@ -73,6 +74,7 @@ module Spirit
           props.merge! inherit_whitelist
         else
           # TODO: test DS populate response when there is no group at all.
+          # This data does not currently conform to DS response with an empty default group
           props = {
               'cn' => '', # Computer ID, generated dynamically
               'dstudio-auto-disable' => 'NO', # (?) Disable auto start
@@ -84,7 +86,8 @@ module Spirit
               'dstudio-host-primary-key' => '',
               'dstudio-host-serial-number' => '',
               'dstudio-hostname' => '', # Group prefix + ID
-              'dstudio-users' => []
+              'dstudio-users' => [],
+              'dstudio-host-ard-ignore-empty-fields' => 'NO' # Cannot be inherited
           }
         end
 

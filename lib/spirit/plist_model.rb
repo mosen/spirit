@@ -12,7 +12,9 @@ module Spirit
     end
 
     def to_hash
-      plist = CFPropertyList::List.new(:file => @path)
+
+      #plist = CFPropertyList::List.new(:file => @path)
+      plist = CFPropertyList::List.new(:data => File.read(@path)) # Changed to make testable
       CFPropertyList.native_types(plist.value)
     end
 
