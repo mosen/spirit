@@ -2,7 +2,18 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
-describe '/packages/sets' do
+PACKAGES_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Packages')
+
+describe '/packages/sets', fakefs: true do
+  def stub_sets
+
+  end
+
+  before(:each) do
+    stub_sets
+
+  end
+
 
   describe '/get/all' do
     before do

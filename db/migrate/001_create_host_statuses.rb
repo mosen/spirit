@@ -1,20 +1,19 @@
-migration 1, :create_host_statuses do
-  up do
-    create_table :host_statuses do
-      column :id, Integer, :serial => true
-      column :serial, DataMapper::Property::String, :length => 255
-      column :IPv4, DataMapper::Property::String, :length => 16
-      column :MACAddress, DataMapper::Property::String, :length => 17
-      column :diskImageConversion, DataMapper::Property::Boolean
-      column :hostname, DataMapper::Property::String, :length => 255
-      column :identifier, DataMapper::Property::String, :length => 255
-      column :multicastStream, DataMapper::Property::Boolean
-      column :online, DataMapper::Property::Boolean
-      column :dialogDescription, DataMapper::Property::String, :length => 255
+class CreateHostStatuses < ActiveRecord::Migration
+  def self.up
+    create_table :host_statuses do |t|
+      t.column :serial, :string, :limit => 255
+      t.column :IPv4, :string, :limit => 16
+      t.column :MACAddress, :string, :limit => 17
+      t.column :diskImageConversion, :boolean
+      t.column :hostname, :string
+      t.column :identifier, :string
+      t.column :multicastStream, :boolean
+      t.column :online, :boolean
+      t.column :dialogDescription, :string
     end
   end
 
-  down do
+  def self.down
     drop_table :host_statuses
   end
 end
