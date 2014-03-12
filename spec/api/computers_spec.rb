@@ -143,7 +143,7 @@ describe '/computers', fakefs: true do
         expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties']).to be_instance_of(Array)
         expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]).to be_instance_of(Hash)
         expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-key']).to eq('DSCP_1')
-        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-label']).to eq('Custom Property 1')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-label']).to eq('Custom property 1')
         expect(plist_hash['W1111GTM4QQ']['dstudio-custom-properties'][0]['dstudio-custom-property-value']).to eq('value')
       end
 
