@@ -110,7 +110,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'inherits the group prefix for the cn (computer name)' do
-        expect(plist_hash['W1111GTM4QQ']['cn']).to start_with('mockgrp')
+        expect(plist_hash['W1111GTM4QQ']['cn']).to start_with('grp')
       end
 
       it 'creates a computer number in the series specified by the group setting' do
@@ -127,7 +127,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'inherits the group prefix for the boot camp computer name' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-bootcamp-windows-computer-name']).to start_with('MOCKGRP')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-bootcamp-windows-computer-name']).to start_with('GRP')
       end
 
       it 'inherits the boot camp serial number setting' do
@@ -136,7 +136,7 @@ describe '/computers', fakefs: true do
 
       it 'inherits the array of client management computer groups' do
         expect(plist_hash['W1111GTM4QQ']['dstudio-clientmanagement-computer-groups']).to be_instance_of(Array)
-        expect(plist_hash['W1111GTM4QQ']['dstudio-clientmanagement-computer-groups']).to include('mock-wgm-group')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-clientmanagement-computer-groups']).to include('wgm-group')
       end
 
       it 'inherits the group custom properties' do
@@ -152,7 +152,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'sets the group property to the default group' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Default')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-group']).to eq('Group 1')
       end
 
       # TODO: where is this set in the UI?
@@ -174,7 +174,7 @@ describe '/computers', fakefs: true do
 
         first_interface = plist_hash['W1111GTM4QQ']['dstudio-host-interfaces']['en0']
 
-        expect(first_interface['dstudio-dns-ips']).to eq('8.8.8.8')
+        expect(first_interface['dstudio-dns-ips']).to eq('10.0.0.200')
         expect(first_interface['dstudio-host-airport']).to eq('NO')
         expect(first_interface['dstudio-host-airport-name']).to eq('')
         expect(first_interface['dstudio-host-airport-password']).to eq('')
@@ -198,7 +198,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'inherits the network location name' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-host-location']).to eq('Mock Location')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-host-location']).to eq('Spirit Location')
       end
 
       it 'inherits the boolean value to create a new network location' do
@@ -214,11 +214,11 @@ describe '/computers', fakefs: true do
       end
 
       it 'inherits the hostname prefix' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-hostname']).to start_with('MOCKHOST')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-hostname']).to start_with('grp')
       end
 
       it 'inherits the os x server key setting' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-serial-number']).to eq('mock-serial-number|mock-reg-user|mock-reg-org')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-serial-number']).to eq('pretend this is an osx server key|spirit user|spirit org')
       end
 
       it 'inherits the local users list' do
@@ -231,17 +231,17 @@ describe '/computers', fakefs: true do
         expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-hidden-status']).to eq('YES')
 
         expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-name')
-        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-name']).to eq('Mock User Name')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-name']).to eq('user1')
 
         expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-password')
         expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-password']).to be
 
         expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]).to have_key('dstudio-user-shortname')
-        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-shortname']).to eq('mockuser')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-users'][0]['dstudio-user-shortname']).to eq('user1')
       end
 
       it 'inherits the xsan 1.x key setting' do
-        expect(plist_hash['W1111GTM4QQ']['dstudio-xsan-license']).to eq('mock-xsan-serial|mock-reg-user|mock-reg-org')
+        expect(plist_hash['W1111GTM4QQ']['dstudio-xsan-license']).to eq('pretend this is an xsan key|spirit user|spirit org')
       end
     end
   end

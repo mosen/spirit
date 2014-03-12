@@ -36,31 +36,59 @@ module Spirit
         computers
       end
 
-      def create(serial, eth_id)
-        template = {
-            'cn' => '', # Computer ID, generated dynamically
-            'dstudio-auto-disable' => 'NO', # (?) Disable auto start
-            'dstudio-auto-reset-workflow' => 'NO', # (?
-            'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
-            'dstudio-disabled' => 'NO', # (?)
-            'dstudio-group' => 'Default',
-            'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
-            'dstudio-host-primary-key' => '',
-            'dstudio-host-serial-number' => '',
-            'dstudio-hostname' => '', # Group prefix + ID
-            'dstudio-users' => []
-        }
+      def create(serial, eth_id, inherit_values = nil)
 
-        computer = template.clone
-        computer['cn'] = '1' # TODO: Generate dynamically
-        computer['dstudio-host-primary-key'] = @primary_key
-        computer['dstudio-host-serial-number'] = serial
-        computer['dstudio-mac-addr'] = eth_id
-        computer['dstudio-hostname'] = 'spirit1' # TODO: Generate dynamically
-        # dstudio-group = from group.settings where default=yes
-        # dstudio-users = from group.settings
+        computer_count = 0 # TODO: store sequence in db, this is temporary
+        # TODO: DS Admin dictates sequence number precision via these properties:
+        #   <key>dstudio-group-hosname-index-first-value</key>
+        #<integer>1</integer>
+        #   <key>dstudio-group-hosname-index-length</key>
+        #<integer>2</integer>
 
-        computer
+        # Key values copied verbatim (no processing reqd)
+        inherited_keys = %w(dstudio-auto-disable dstudio-auto-reset-workflow
+          dstudio-bootcamp-windows-product-key dstudio-clientmanagement-computer-groups dstudio-custom-properties
+          dstudio-disabled dstudio-host-ard-ignore-empty-fields dstudio-host-delete-other-locations
+          dstudio-host-first-interface dstudio-host-interfaces dstudio-host-location dstudio-host-new-network-location
+          dstudio-serial-number dstudio-users dstudio-xsan-license)
+
+        # Inherit from group properties passed into this method
+        unless inherit_values.nil?
+          props = {
+            'architecture' => 'i386', # TODO: Test to ensure that this IS the default
+            'cn' => inherit_values['cn'] + (computer_count+1).to_s,
+            'dstudio-group' => inherit_values['dstudio-group-name'],
+            'dstudio-host-primary-key' => @primary_key,
+            'dstudio-hostname' => inherit_values['dstudio-hostname'] + (computer_count+1).to_s,
+            'dstudio-mac-addr' => eth_id,
+            'dstudio-host-serial-number' => serial
+          }
+
+          if inherit_values.has_key?('dstudio-bootcamp-windows-computer-name')
+            props['dstudio-bootcamp-windows-computer-name'] = inherit_values['dstudio-bootcamp-windows-computer-name'] + (computer_count+1).to_s
+          end
+
+          inherit_whitelist = inherit_values.keep_if { |k, v| inherited_keys.include?(k) }
+
+          props.merge! inherit_whitelist
+        else
+          # TODO: test DS populate response when there is no group at all.
+          props = {
+              'cn' => '', # Computer ID, generated dynamically
+              'dstudio-auto-disable' => 'NO', # (?) Disable auto start
+              'dstudio-auto-reset-workflow' => 'NO', # (?
+              'dstudio-bootcamp-windows-computer-name' => '3', # prefix would be added to this
+              'dstudio-disabled' => 'NO', # (?)
+              'dstudio-group' => 'Default',
+              'dstudio-host-new-network-location' => 'NO', # (?) depends on group config
+              'dstudio-host-primary-key' => '',
+              'dstudio-host-serial-number' => '',
+              'dstudio-hostname' => '', # Group prefix + ID
+              'dstudio-users' => []
+          }
+        end
+
+        props
       end
 
     end

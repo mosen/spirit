@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Group 1</key>
+	<dict>
+		<key>cn</key>
+		<string>grp</string>
+		<key>dstudio-auto-disable</key>
+		<string>YES</string>
+		<key>dstudio-auto-reset-workflow</key>
+		<string>YES</string>
+		<key>dstudio-bootcamp-windows-computer-name</key>
+		<string>GRP</string>
+		<key>dstudio-bootcamp-windows-product-key</key>
+		<string>THISI-SAWIN-DOWSP-RODUC-TKEY0</string>
+		<key>dstudio-clientmanagement-computer-groups</key>
+		<array>
+			<string>wgm-group</string>
+		</array>
+		<key>dstudio-custom-properties</key>
+		<array>
+			<dict>
+				<key>dstudio-custom-property-key</key>
+				<string>DSCP_1</string>
+				<key>dstudio-custom-property-label</key>
+				<string>Custom property 1</string>
+				<key>dstudio-custom-property-value</key>
+				<string>value</string>
+			</dict>
+		</array>
+		<key>dstudio-disabled</key>
+		<string>NO</string>
+		<key>dstudio-group-hosname-index-first-value</key>
+		<integer>1</integer>
+		<key>dstudio-group-hosname-index-length</key>
+		<integer>2</integer>
+		<key>dstudio-group-name</key>
+		<string>Group 1</string>
+		<key>dstudio-host-delete-other-locations</key>
+		<string>YES</string>
+		<key>dstudio-host-first-interface</key>
+		<string>en0</string>
+		<key>dstudio-host-interfaces</key>
+		<dict>
+			<key>en0</key>
+			<dict>
+				<key>dstudio-dns-ips</key>
+				<string>10.0.0.200</string>
+				<key>dstudio-host-airport</key>
+				<string>NO</string>
+				<key>dstudio-host-airport-name</key>
+				<string></string>
+				<key>dstudio-host-airport-password</key>
+				<string></string>
+				<key>dstudio-host-auto-config-proxy</key>
+				<string>YES</string>
+				<key>dstudio-host-auto-config-proxy-url</key>
+				<string>http://somewhere/something.pac</string>
+				<key>dstudio-host-auto-discovery-proxy</key>
+				<string>YES</string>
+				<key>dstudio-host-ftp-proxy</key>
+				<string>YES</string>
+				<key>dstudio-host-ftp-proxy-port</key>
+				<string>2112</string>
+				<key>dstudio-host-ftp-proxy-server</key>
+				<string>10.0.0.3</string>
+				<key>dstudio-host-http-proxy</key>
+				<string>YES</string>
+				<key>dstudio-host-http-proxy-port</key>
+				<string>8080</string>
+				<key>dstudio-host-http-proxy-server</key>
+				<string>10.0.0.3</string>
+				<key>dstudio-host-https-proxy</key>
+				<string>YES</string>
+				<key>dstudio-host-https-proxy-port</key>
+				<string>8443</string>
+				<key>dstudio-host-https-proxy-server</key>
+				<string>10.0.0.3</string>
+				<key>dstudio-host-interfaces</key>
+				<string>en0</string>
+				<key>dstudio-host-ip</key>
+				<string>10.0.0.0</string>
+				<key>dstudio-router-ip</key>
+				<string>10.0.0.254</string>
+				<key>dstudio-search-domains</key>
+				<string>spirit.com</string>
+				<key>dstudio-subnet-mask</key>
+				<string>255.255.255.0</string>
+			</dict>
+		</dict>
+		<key>dstudio-host-location</key>
+		<string>Spirit Location</string>
+		<key>dstudio-host-new-network-location</key>
+		<string>YES</string>
+		<key>dstudio-hostname</key>
+		<string>grp</string>
+		<key>dstudio-serial-number</key>
+		<string>pretend this is an osx server key|spirit user|spirit org</string>
+		<key>dstudio-users</key>
+		<array>
+			<dict>
+				<key>dstudio-user-admin-status</key>
+				<string>YES</string>
+				<key>dstudio-user-hidden-status</key>
+				<string>YES</string>
+				<key>dstudio-user-name</key>
+				<string>user1</string>
+				<key>dstudio-user-password</key>
+				<string>dnBmSS8vZEdqQmc9</string>
+				<key>dstudio-user-shortname</key>
+				<string>user1</string>
+			</dict>
+		</array>
+		<key>dstudio-xsan-license</key>
+		<string>pretend this is an xsan key|spirit user|spirit org</string>
+	</dict>
+	<key>_dss_default</key>
+	<dict>
+		<key>dstudio-group-default-group-name</key>
+		<string>Group 1</string>
+		<key>dstudio-group-name</key>
+		<string>_dss_default</string>
+	</dict>
+</dict>
+</plist>

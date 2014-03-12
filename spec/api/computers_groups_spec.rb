@@ -55,7 +55,7 @@ describe '/computers/groups', fakefs: true do
 
   describe '/get/entry?id=' do
     before do
-      get '/computers/groups/get/entry', { 'id' => 'MockGroup' }
+      get '/computers/groups/get/entry', { 'id' => 'Group 1' }
     end
 
     it_behaves_like 'an xml plist response'
@@ -64,7 +64,7 @@ describe '/computers/groups', fakefs: true do
       include_context 'with parsed plist response'
 
       it 'contains a key with the group name' do
-        expect(plist_hash).to have_key('MockGroup')
+        expect(plist_hash).to have_key('Group 1')
       end
     end
   end
@@ -72,7 +72,7 @@ describe '/computers/groups', fakefs: true do
   # The `default` checkbox is unticked
   describe '/del/default' do
     before do
-      post '/computers/groups/del/default', { 'id' => 'MockGroup' }
+      post '/computers/groups/del/default', { 'id' => 'Group 1' }
     end
 
     it_behaves_like 'an xml plist post'
@@ -129,35 +129,35 @@ describe '/computers/groups', fakefs: true do
   # Double-click and rename group
   describe '/ren/entry' do
     before do
-      post '/computers/groups/ren/entry', { 'id' => 'MockGroup', 'new_id' => 'MockGroupRenamed' }
+      post '/computers/groups/ren/entry', { 'id' => 'Group 1', 'new_id' => 'MockGroupRenamed' }
     end
 
     it_behaves_like 'an xml plist post'
 
-    it 'renames the `MockGroup` entry to `MockGroupRenamed` in the group settings' do
+    it 'renames the `Group 1` entry to `MockGroupRenamed` in the group settings' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
       groups = CFPropertyList.native_types(plist.value)
 
       expect(groups).to have_key('MockGroupRenamed')
-      expect(groups).to_not have_key('MockGroup')
+      expect(groups).to_not have_key('Group 1')
     end
   end
 
   # The `default` checkbox is ticked
   describe '/set/default' do
     before do
-      post '/computers/groups/set/default', { 'id' => 'MockGroup' }
+      post '/computers/groups/set/default', { 'id' => 'Group 1' }
     end
 
     it_behaves_like 'an xml plist post'
 
-    it 'sets the default group value to `MockGroup`' do
+    it 'sets the default group value to `Group 1`' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
       groups = CFPropertyList.native_types(plist.value)
 
       expect(groups).to have_key('_dss_default')
       expect(groups['_dss_default']).to have_key('dstudio-group-default-group-name')
-      expect(groups['_dss_default']['dstudio-group-default-group-name']).to eq('MockGroup')
+      expect(groups['_dss_default']['dstudio-group-default-group-name']).to eq('Group 1')
     end
 
   end

@@ -28,7 +28,14 @@ Spirit::App.controllers :computers do
       sn = params[:sn] # client serial
       mac = params[:mac] # client eth id
 
-      computer_hash = Spirit::Computer.create(sn, mac)
+      groups = Spirit::ComputerGroup.all
+      if groups.has_key?('_dss_default') && groups['_dss_default']['dstudio-group-default-group-name'] != ''
+        default_group_name = groups['_dss_default']['dstudio-group-default-group-name']
+        group_properties = groups[default_group_name]
+        computer_hash = Spirit::Computer.create(sn, mac, group_properties)
+      else
+        computer_hash = Spirit::Computer.create(sn, mac)
+      end
 
       response = { sn => computer_hash }
 
@@ -42,7 +49,7 @@ Spirit::App.controllers :computers do
       }
     end
 
-    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
   end
 
   # Get a list of computer groups
@@ -60,7 +67,7 @@ Spirit::App.controllers :computers do
       groups = Spirit::ComputerGroup.all
 
       default_group = {
-          'default' => groups_native['_dss_default']['dstudio-group-default-group-name']
+          'default' => groups['_dss_default']['dstudio-group-default-group-name']
       }
     rescue
       default_group = { 'default' => '' }
