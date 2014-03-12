@@ -58,8 +58,12 @@ module Spirit
           })
 
           @request_payload = CFPropertyList.native_types(post_plist.value)
-        rescue
-          logger.warn 'Request could not be parsed as a Property List!'
+        rescue CFFormatError => e
+          puts 'Request could not be parsed as a Property List!'
+          puts 'XML Plist Content:'
+          puts request.body.read
+
+          raise e
         end
       end
 

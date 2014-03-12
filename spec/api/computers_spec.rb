@@ -42,7 +42,7 @@ describe '/computers', fakefs: true do
         'dstudio-users' => []
       }
 
-      f.write(computer.to_plist)
+      f.write(computer.to_plist(plist_format: CFPropertyList::List::FORMAT_XML))
     end
   end
 
@@ -260,12 +260,19 @@ describe '/computers', fakefs: true do
 
   # Set computer information from runtime
   describe '/set/entry?id=' do
+    let(:computers_dir) {
+      File.dirname(COMPUTER_MOCK_PATH)
+    }
+
     before do
-      mock_computer_plist = File.join('spec', 'fixtures', 'computers', 'Q03G55FVDRJL.plist')
-      post '/computers/set/entry?id=Q03G55FVDRJL&pk=sn', File.read(mock_computer_plist), { 'Content-Type' => 'text/xml;charset=utf8' }
+      post '/computers/set/entry?id=W1111GTM4Q2&pk=sn', File.read(COMPUTER_MOCK_PATH), { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'an xml plist post'
+
+    it 'creates a plist file named after the primary key' do
+      expect(File.exists?(File.expand_path(computers_dir, 'W1111GTM4Q2.plist'))).to be_true
+    end
 
     # TODO: verify that respository plist is identical to set plist
   end
@@ -273,7 +280,7 @@ describe '/computers', fakefs: true do
   describe '/del/entries' do
     before do
       delete_entries_plist = { 'ids' => [ 'W1111GTM4QQ' ] }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
-      post '/computers/del/entries', delete_entries_plist, { 'Content-Type' => 'text/xml;charset=utf8' }
+      post '/computers/del/entries', delete_entries_plist, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'an xml plist post'

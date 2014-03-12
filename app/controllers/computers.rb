@@ -150,6 +150,8 @@ Spirit::App.controllers :computers do
 
     computer = Spirit::Computer.new 'sn', serial # TODO: Use primary key setting from config instead of "sn" literal
     computer.contents= request.body.read
+
+    201
   end
 
 # DeployStudio Runtime POSTs status about its running state.
@@ -163,20 +165,11 @@ Spirit::App.controllers :computers do
 
   end
 
-  post '/set/entry' do
-    request.body.rewind
-
-    computer = Spirit::Computer.new params[:id]
-    computer.contents = request.body.read
-
-    201
-  end
-
   post '/del/entries' do
     if @request_payload.member? 'ids'
 
       @request_payload['ids'].each do |id|
-        computer = Spirit::Computer.new id
+        computer = Spirit::Computer.new 'sn', id
         Spirit::Computer.delete(computer)
       end
       201

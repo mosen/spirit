@@ -73,6 +73,8 @@ Replicate storage method for those.
 marked as default.
 + Mock plist fails in RSpec examples.
 + Incomplete tests.
++ Most actions assume that the serial number is the primary key, when it should be determined based upon the
+repository setting.
 
 #### Logs
 

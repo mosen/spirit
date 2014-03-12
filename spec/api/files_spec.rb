@@ -28,6 +28,10 @@ describe '/files', fakefs: true do
         expect(plist_hash).to have_key('files')
         expect(plist_hash['files']).to be_instance_of(Array)
       end
+
+      it 'contains the mock file' do
+        expect(plist_hash['files']).to include('testfile.txt')
+      end
     end
 
   end

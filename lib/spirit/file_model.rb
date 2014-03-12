@@ -16,18 +16,22 @@ module Spirit
 
       # Delete the file represented by this model
       def delete(file_model)
-        File.unlink(file_model.path+file_model.ext)
+        File.unlink(file_model.path)
       end
     end
 
     attr_accessor :name
+
+    # Fully qualified path including extension
     attr_accessor :path
+
+    # TODO: refactor out file extension, subclass constructor can append to path
     attr_accessor :ext
 
     def initialize(name)
       @name = name
       @ext = ''
-      @path = File.join(self.class.path, name+@ext)
+      @path = File.join(self.class.path, name)
     end
 
     # Get absolute path
