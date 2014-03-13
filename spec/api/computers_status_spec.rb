@@ -1,10 +1,15 @@
 require 'spec_helper'
 require 'shared_examples_http'
 require 'shared_contexts'
+require_relative '../../models/host_status'
 
 STATUS_WAITING_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/waiting.plist'))
+STATUS_REPO_ERROR = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/repo_error.plist'))
 
 describe '/computers/status' do
+  after(:each) do
+    HostStatus.delete_all
+  end
 
   describe '/status/get/all' do
     before do
@@ -18,6 +23,21 @@ describe '/computers/status' do
     end
   end
 
+  describe '/status/set/entry?tag=DSRemoteStatusHostInformation (status without host info)' do
+    before do
+      post(
+          '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+          STATUS_REPO_ERROR,
+          { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      )
+    end
+
+    it 'creates a row with identifier from the `id` parameter' do
+      expect(HostStatus.where('identifier = ?', ['W1111GTM4QQ'])).to_not be_empty
+    end
+
+  end
+
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
     before do
       post(
@@ -29,6 +49,11 @@ describe '/computers/status' do
 
     it 'creates a status entry for the mock status update' do
       # TODO: query for mock status
+
+    end
+
+    it 'sets the identifier to the value of the `id` parameter' do
+      expect(HostStatus.where('identifier = ?', ['W1111GTM4QQ'])).to_not be_empty
     end
   end
 

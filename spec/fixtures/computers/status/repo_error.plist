@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IPv4</key>
+	<string></string>
+	<key>MACAddress</key>
+	<string></string>
+	<key>dialogDescription</key>
+	<string>Repository access error</string>
+	<key>diskImageConversion</key>
+	<false/>
+	<key>identifier</key>
+	<string></string>
+	<key>multicastStream</key>
+	<false/>
+	<key>online</key>
+	<false/>
+</dict>
+</plist>
