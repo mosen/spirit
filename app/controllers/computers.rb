@@ -174,7 +174,8 @@ Spirit::App.controllers :computers do
     if tag == 'DSRemoteStatusHostInformation'
       # insert/update host status info
 
-      HostStatus.create @request_payload
+      host_status = @request_payload.merge({ identifier: serial })
+      HostStatus.create host_status
     end
 
     if tag == 'DSRemoteStatusWorkflowsInformation'
