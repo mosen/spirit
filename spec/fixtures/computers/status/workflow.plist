@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompletedStatus</key>
+	<integer>0</integer>
+	<key>Name</key>
+	<string>Restore SpiritHD</string>
+	<key>RunningStatus</key>
+	<integer>1</integer>
+	<key>StartedDate</key>
+	<date>2014-01-31T04:40:01Z</date>
+	<key>Steps</key>
+	<array>
+		<dict>
+			<key>Comments</key>
+			<string>-</string>
+			<key>CompletedStatus</key>
+			<integer>0</integer>
+			<key>Name</key>
+			<string>Partition</string>
+			<key>RunningStatus</key>
+			<integer>1</integer>
+			<key>StartedDate</key>
+			<date>2014-01-31T04:40:04Z</date>
+		</dict>
+		<dict>
+			<key>Comments</key>
+			<string></string>
+			<key>CompletedStatus</key>
+			<integer>0</integer>
+			<key>Description</key>
+			<string></string>
+			<key>Name</key>
+			<string></string>
+			<key>RunningStatus</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+</dict>
+</plist>
