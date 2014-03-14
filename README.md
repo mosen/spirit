@@ -10,16 +10,27 @@ in favour of osx infrastructure that is bound to non-virtualised apple hardware 
 
 ## Installation
 
-- Clone the repo into any directory you like. If you have an existing __DocumentRoot__ directory, this may be suitable.
-- Install `ruby` if you haven't already.
-- Install `bundler`
+- Install `ruby` if you haven't already. Preferably v2.x.
+- Install `bundler` using RubyGems:
+
+        $ gem install bundler
+
+- Clone this repository into the directory where you want to serve spirit from. (such as `/var/www`).
 - Run `bundle install` from this directory to deal with Gem dependencies.
-- Run the rake task to create a repository (or copy yours from DS)
+- Run the rake task to create a repository (or copy yours from DS).
 
         $ rake spirit:repo
 
-- Read the config in `app/config/server.yml` and `app/config/spirit.yml`.
-- You can run `rackup` from this directory to run a temporary test service.
+- Copy `app/config/server.dist.yml` to `app/config/server.yml` and adjust config. The repository url and
+credentials will have to be changed at minimum.
+- Copy `app/config/spirit.dist.yml` to `app/config/spirit.yml` and adjust config. You may want to change DS Admin
+authentication here.
+- Run the database schema migrations to create tables used for the activity list:
+
+        $ rake ar:migrate
+
+- Run `rackup` to start a built-in web server, or configure with your web service of choice (Apache/Passenger,
+Nginx/Unicorn etc...)
 
 ## API Reference
 
@@ -63,19 +74,19 @@ Replicate storage method for those.
 
 #### Activity
 
-+ Currently does nothing at all.
-    + Use some db or in-memory persistence to track computer status. Maybe redis but
-    consider not adding too many deps.
++ Host status is inserted only, but there is no functionality to query the status or ensure the uniqueness of
+the serial number.
 
 #### Computers
 
 + in get/entry?populate=YES, `Spirit::Computer.create` should cause the computer to inherit settings from any group
 marked as default.
++ need to test the case where a computer is populated without group membership, which keys are defaulted?
 + Newly populated computer records do not respect the group setting for starting integer and number precision.
-+ Mock plist fails in RSpec examples.
 + Incomplete tests.
 + Most actions assume that the serial number is the primary key, when it should be determined based upon the
 repository setting.
++ Cannot import computer records
 
 #### Logs
 

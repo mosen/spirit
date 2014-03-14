@@ -1,0 +1,24 @@
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"> 
+	<dict> 
+		<key>data</key> 
+		<dict> 
+			<key>C02AAAAAAAAA</key>
+			<dict>
+				<key>cn</key> 
+				<string>spirit1</string>
+			</dict> 
+			<key>C02AAAAAAAAB</key>
+			<dict> 
+				<key>cn</key> 
+				<string>spirit2</string>
+			</dict> 
+        </dict>
+		<key>format</key> 
+		<string>DSS</string> 
+		<key>imported_count</key> 
+		<string>0</string> 
+		<key>items_count</key> 
+		<integer>2</integer>
+	</dict> 
+</plist>

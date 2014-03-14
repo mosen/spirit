@@ -5,6 +5,7 @@ require_relative '../../models/host_status'
 
 STATUS_WAITING_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/waiting.plist'))
 STATUS_REPO_ERROR = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/repo_error.plist'))
+WORKFLOW_PROGRESS_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/workflow.plist'))
 
 describe '/computers/status' do
   after(:each) do
@@ -38,6 +39,23 @@ describe '/computers/status' do
 
   end
 
+  describe '/status/set/entry?tag=DSRemoteStatusHostInformation (posting twice with the same serial number)' do
+    before do
+      2.times do
+        post(
+            '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+            STATUS_REPO_ERROR,
+            { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+        )
+      end
+    end
+
+    it 'does not create a duplicate row' do
+      expect(HostStatus.count).to eq(1)
+    end
+
+  end
+
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
     before do
       post(
@@ -59,7 +77,11 @@ describe '/computers/status' do
 
   describe '/status/set/entry?tag=DSRemoteStatusWorkflowsInformation' do
     before do
-      post '/computers/status/set/entry', { 'id' => 'W1111GTM4QQ', 'tag' => 'DSRemoteStatusWorkflowsInformation' }
+      post(
+          '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusWorkflowsInformation',
+          WORKFLOW_PROGRESS_PLIST,
+          { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      )
     end
 
     it 'creates a workflow status entry for the mock status update' do

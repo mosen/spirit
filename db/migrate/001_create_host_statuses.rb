@@ -9,6 +9,8 @@ class CreateHostStatuses < ActiveRecord::Migration
       t.column :multicastStream, :boolean
       t.column :online, :boolean
       t.column :dialogDescription, :string
+
+      t.timestamps
     end
   end
 
