@@ -249,7 +249,6 @@ describe '/computers', fakefs: true do
   # Get a single entry with key (id) given primary key (pk)
   describe '/get/entry?id=&pk=sn' do
     before do
-      puts File.exists? COMPUTER_MOCK_PATH
       get '/computers/get/entry', { 'id' => 'W1111GTM4QQ', 'pk' => 'sn' }
     end
 

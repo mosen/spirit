@@ -1,6 +1,7 @@
 ## Spirit
 
 A multi-platform DeployStudio server replacement. **HEAVILY IN DEVELOPMENT AKA BROKEN**
+My old repository has been tagged 1.6.3a, this was the version in development against DeployStudio 1.6.3
 
 ## Motivation
 
@@ -35,6 +36,7 @@ Nginx/Unicorn etc...)
 ## API Reference
 
 For the moment you will have to read the code for information on the API or detailed troubleshooting (sorry).
+The server is based on the [padrino](http://www.padrinorb.com/) framework .
 
 ## Tests
 
