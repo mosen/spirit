@@ -21,7 +21,7 @@ gem 'activerecord', :require => "active_record"
 # Test requirements
 
 # Padrino Stable Gem
-gem 'padrino', '0.11.4'
+gem 'padrino', '0.12.3'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
@@ -43,5 +43,5 @@ gem 'rspec-padrino'
 # Generate RSpec fixtures
 gem 'factory_girl'
 
-# Fake the repository
+# Used to fake an existing DS repository in RSpec examples.
 gem 'fakefs', require: "fakefs/safe"
