@@ -28,11 +28,9 @@ module Spirit
       set :server_config_path, ds_configuration_file
     end
 
-    if !File.exists?(settings.repo_path)
-      raise "You cannot start Spirit without a repository"
-    end
+    raise "You cannot start Spirit without a repository" unless File.exists?(settings.repo_path)
 
-    if !File.exists? (File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist'))
+    unless File.exists?(File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist'))
       logger.info "Databases/ByHost/group.settings.plist does not exist in your repo... creating one"
 
       FileUtils.cp(
@@ -46,28 +44,26 @@ module Spirit
       username == settings.username && password == settings.password
     end
 
-    # TODO: middleware that checks Content-Type text/xml and attempts to parse request like this
+    # DeployStudio supplies binary plists using 'text/xml' headers. It doesn't care about HTTP.
     before do # Set plist object on @request_payload if request content was text/xml
       if request.media_type == 'text/xml' && request.content_length
         request.body.rewind
 
         begin
-          post_plist = CFPropertyList::List.new({
-              format: CFPropertyList::List::FORMAT_XML,
-              data: request.body.read
-          })
+          post_plist = CFPropertyList::List.new()
+          post_plist.value = CFPropertyList.guess(request.body.read)
 
           @request_payload = CFPropertyList.native_types(post_plist.value)
         rescue CFFormatError => e
           puts 'Request could not be parsed as a Property List!'
-          puts 'XML Plist Content:'
+          puts 'Request Content:'
           puts request.body.read
 
           raise e
         end
       end
 
-      content_type 'text/xml;charset=utf8'
+      content_type 'application/octet-stream'
     end
 
     require_relative '../lib/spirit/master'

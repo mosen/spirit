@@ -6,12 +6,17 @@ repository_root: './ds_repo'
 
 # Server version reported to the client, should match if you don't want
 # warnings.
-version: '1.6.3'
+version: '1.6.11'
 
 # Our version number, prefixed with the DS server version it emulates
-spirit_version: '1.6.3.1'
+spirit_version: '1.6.11.1'
 
 # Admin credentials - Eventually this will tie into some actual authentication
 # service
 username: 'admin'
 password: 'secret'
+
+# Response format - Changed to binary sometime around 1.6.8
+# If not true, reverts to xml encoded property lists.
+respond_binary: True
+

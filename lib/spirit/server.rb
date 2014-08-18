@@ -37,8 +37,8 @@ module Spirit
           'role' => @config['role'],
           'secure_server' => false, # TODO: make true if ssl certificate configured
           'status' => 0, # TODO: Not sure how this is applicable
-          'version' => '1.6.3',
-          'version-string' => 'Spirit Server 1.6.3.1'
+          'version' => '1.6.11',
+          'version-string' => 'Spirit Server 1.6.11.1'
       }
     end
 
