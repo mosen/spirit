@@ -11,7 +11,7 @@ in favour of osx infrastructure that is bound to non-virtualised apple hardware 
 
 ## Installation
 
-- Install `ruby` if you haven't already. Preferably v2.x.
+- Install `ruby` if you haven't already. Preferably v2.x, but minimum is 1.9.3 per Padrino requirement.
 - Install `bundler` using RubyGems:
 
         $ gem install bundler
