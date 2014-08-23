@@ -40,7 +40,7 @@ module Spirit
 
     # TODO: middleware that checks Content-Type text/xml and attempts to parse request like this
     before do # Set plist object on @request_payload if request content was text/xml
-      if request.media_type == 'text/xml' && request.content_length
+      if request.media_type == 'text/xml' && request.content_length.to_i > 0
         request.body.rewind
         post_plist = CFPropertyList::List.new({
             format: CFPropertyList::List::FORMAT_XML,
