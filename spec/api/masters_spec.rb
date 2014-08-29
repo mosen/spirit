@@ -13,7 +13,7 @@ describe '/masters' do
       get '/masters/get/all', { 'keywords' => 'HFS' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
   end
 
   describe '/get/entry' do

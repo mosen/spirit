@@ -14,7 +14,7 @@ describe '/user' do
       CFPropertyList.native_types(plist.value)
     }
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     it 'contains a credentials array' do
       expect(plist_hash['credentials']).to be_instance_of(Array)

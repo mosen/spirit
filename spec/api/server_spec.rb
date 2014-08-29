@@ -22,7 +22,7 @@ describe '/server' do
       CFPropertyList.native_types(plist.value)
     }
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     it 'contains a client counter' do
       expect(plist_hash['clients']).to be

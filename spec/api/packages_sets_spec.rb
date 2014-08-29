@@ -20,7 +20,7 @@ describe '/packages/sets', fakefs: true do
       get '/packages/sets/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
   end
 
   describe '/get/entry' do
@@ -28,7 +28,7 @@ describe '/packages/sets', fakefs: true do
       get '/packages/sets/get/entry', { 'id' => 'MockPackageSet' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
   end
 
   describe '/add/entry?id=&pkg= (add package to set)' do

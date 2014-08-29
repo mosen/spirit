@@ -9,7 +9,7 @@ describe '/workflows' do
       get '/workflows/get/all', { 'id' => 'W1111GTM4QQ', 'groups' => '(null)' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
   end
 
   describe '/get/entry?id=' do
@@ -17,7 +17,7 @@ describe '/workflows' do
       get '/workflows/get/entry', { 'id' => 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEFFFFFFFF' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
   end
 
   describe '/del/entry' do

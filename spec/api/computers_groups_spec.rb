@@ -22,7 +22,7 @@ describe '/computers/groups', fakefs: true do
       get '/computers/groups/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
       include_context 'with parsed plist response'
@@ -42,7 +42,7 @@ describe '/computers/groups', fakefs: true do
       get '/computers/groups/get/default', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
       include_context 'with parsed plist response'
@@ -58,7 +58,7 @@ describe '/computers/groups', fakefs: true do
       get '/computers/groups/get/entry', { 'id' => 'Group 1' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
       include_context 'with parsed plist response'

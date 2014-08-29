@@ -17,7 +17,7 @@ describe '/computers/status' do
       get '/computers/status/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with the plist result' do
 

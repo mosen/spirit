@@ -17,6 +17,24 @@ shared_examples 'an xml plist response' do
   end
 end
 
+shared_examples 'a binary plist response' do
+
+  it 'has a HTTP response status of 200 ok' do
+    expect(last_response.status).to eq(200)
+  end
+
+  it 'has a content type of application/octet-stream' do
+    expect(last_response.header['Content-Type']).to eq('application/octet-stream')
+  end
+
+  it 'is a parseable plist' do
+    expect {
+      plist = CFPropertyList::List.new(:data => last_response.body)
+    }.to_not raise_error()
+  end
+
+end
+
 shared_examples 'an xml plist post' do
 
   it 'should respond status 201 created' do

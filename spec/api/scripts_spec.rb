@@ -22,7 +22,7 @@ describe '/scripts', fakefs: true do
       get '/scripts/get/all', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
       include_context 'with parsed plist response'
@@ -38,7 +38,7 @@ describe '/scripts', fakefs: true do
       get '/scripts/get/entry', { 'id' => 'mock.sh' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
       include_context 'with parsed plist response'

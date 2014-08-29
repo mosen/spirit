@@ -57,7 +57,7 @@ describe '/computers', fakefs: true do
       get '/computers/get/all'
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with the plist result' do
       include_context 'with parsed plist response'
@@ -84,7 +84,7 @@ describe '/computers', fakefs: true do
       get '/computers/get/entry', { 'sn' => 'W1111GTM4QQ', 'mac' => '00:11:C0:FF:EE', 'populate' => 'yes' }
     end
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with the plist result' do
       # Although this doesnt really test functionality, it provides me with a reference for
@@ -254,7 +254,7 @@ describe '/computers', fakefs: true do
 
     # TODO: test ethernet ID as primary key
 
-    it_behaves_like 'an xml plist response'
+    it_behaves_like 'a binary plist response'
 
     context 'with the plist result' do
       include_context 'with parsed plist response'
