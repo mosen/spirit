@@ -42,7 +42,7 @@ describe '/computers', fakefs: true do
         'dstudio-users' => []
       }
 
-      f.write(computer.to_plist(plist_format: CFPropertyList::List::FORMAT_XML))
+      f.write(computer.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY))
     end
   end
 
@@ -274,7 +274,7 @@ describe '/computers', fakefs: true do
       post '/computers/set/entry?id=W1111GTM4Q2&pk=sn', File.read(COMPUTER_MOCK_PATH), { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'creates a plist file named after the primary key' do
       expect(File.exists?(File.expand_path(computers_dir, 'W1111GTM4Q2.plist'))).to be_true
@@ -285,11 +285,11 @@ describe '/computers', fakefs: true do
 
   describe '/del/entries' do
     before do
-      delete_entries_plist = { 'ids' => [ 'W1111GTM4QQ' ] }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
-      post '/computers/del/entries', delete_entries_plist, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      delete_entries_plist = { 'ids' => [ 'W1111GTM4QQ' ] }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
+      post '/computers/del/entries', delete_entries_plist, { 'CONTENT_TYPE' => 'application/octet-stream' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'deletes the plist file relating to the specified id' do
       expect(File.exists?('W1111GTM4QQ.plist')).to be_false

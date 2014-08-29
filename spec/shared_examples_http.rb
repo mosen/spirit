@@ -33,9 +33,14 @@ shared_examples 'a binary plist response' do
     }.to_not raise_error()
   end
 
+  it 'is in binary plist (bplist) format' do
+    plist = CFPropertyList::List.new(:data => last_response.body)
+    expect(plist.format).to eq(CFPropertyList::List::FORMAT_BINARY)
+  end
+
 end
 
-shared_examples 'an xml plist post' do
+shared_examples 'a successful post' do
 
   it 'should respond status 201 created' do
     expect(last_response.status).to eq(201)

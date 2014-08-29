@@ -33,7 +33,7 @@ describe '/workflows' do
       post '/workflows/set/entry', { 'id' => 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEFFFFFFFF' } # TODO: workflow plist in post body
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
 end

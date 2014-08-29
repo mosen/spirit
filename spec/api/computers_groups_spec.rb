@@ -75,7 +75,7 @@ describe '/computers/groups', fakefs: true do
       post '/computers/groups/del/default', { 'id' => 'Group 1' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'removes the default group key `_dss_default`' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
@@ -92,7 +92,7 @@ describe '/computers/groups', fakefs: true do
       post '/computers/groups/del/entry', { 'id' => 'MockGroup' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'deletes the entry from the group settings plist' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
@@ -108,7 +108,7 @@ describe '/computers/groups', fakefs: true do
       post '/computers/groups/new/entry'
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'creates an entry called `Group 1` for the first group' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
@@ -132,7 +132,7 @@ describe '/computers/groups', fakefs: true do
       post '/computers/groups/ren/entry', { 'id' => 'Group 1', 'new_id' => 'MockGroupRenamed' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'renames the `Group 1` entry to `MockGroupRenamed` in the group settings' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
@@ -149,7 +149,7 @@ describe '/computers/groups', fakefs: true do
       post '/computers/groups/set/default', { 'id' => 'Group 1' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'sets the default group value to `Group 1`' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)
@@ -165,11 +165,11 @@ describe '/computers/groups', fakefs: true do
   # Update group detail
   describe '/set/entry' do
     before do
-      group_content_plist = { 'test' => 'value' }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
-      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      group_content_plist = { 'test' => 'value' }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
+      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'application/octet-stream' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'sets the contents of the key `MockGroup` in the group settings to the posted plist' do
       plist = CFPropertyList::List.new(:file => GROUP_SETTINGS_PATH)

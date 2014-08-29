@@ -21,7 +21,7 @@ describe '/logs' do
       post '/logs/rotate/entry', { 'id' => 'W1111GTM4QQ' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
   describe '/set/entry' do

@@ -36,7 +36,7 @@ describe '/packages/sets', fakefs: true do
       post '/packages/sets/add/entry', { 'id' => 'MockPackageSet', 'pkg' => 'Mock.pkg' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
   describe '/new/entry' do
@@ -44,7 +44,7 @@ describe '/packages/sets', fakefs: true do
       post '/packages/sets/new/entry'
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
   describe '/ren/entry?id=&new_id=' do
@@ -52,7 +52,7 @@ describe '/packages/sets', fakefs: true do
       post '/packages/sets/ren/entry', { 'id' => 'MockPackageSet', 'new_id' => 'MockRenamedPackageSet' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
 end

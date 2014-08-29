@@ -55,7 +55,7 @@ describe '/scripts', fakefs: true do
       post '/scripts/del/entry', { 'id' => 'mock.sh' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'removes the mock script' do
       expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
@@ -67,7 +67,7 @@ describe '/scripts', fakefs: true do
       post '/scripts/ren/entry', { 'id' => 'mock.sh', 'newid' => 'mock_renamed.sh' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
 
     it 'renames the mock script' do
       expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
@@ -77,10 +77,10 @@ describe '/scripts', fakefs: true do
 
   describe '/set/entry' do
     before do
-      post '/scripts/set/entry?id=mock_post.sh', { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML), { 'Content-Type' => 'text/xml;charset=utf8' }
+      post '/scripts/set/entry?id=mock_post.sh', { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY), { 'Content-Type' => 'application/octet-stream' }
     end
 
-    it_behaves_like 'an xml plist post'
+    it_behaves_like 'a successful post'
   end
 
 end
