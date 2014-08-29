@@ -6,6 +6,7 @@ require 'cfpropertylist'
 GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/group.settings.plist')
 
 describe '/computers/groups', fakefs: true do
+
   def stub_groups
     FileUtils.mkdir_p File.dirname(GROUP_SETTINGS_PATH)
     File.open File.expand_path(GROUP_SETTINGS_PATH), 'w' do |f|
@@ -165,7 +166,7 @@ describe '/computers/groups', fakefs: true do
   # Update group detail
   describe '/set/entry' do
     before do
-      group_content_plist = { 'test' => 'value' }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
+      group_content_plist = { 'test' => 'value' }.to_plist
       post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'application/octet-stream' }
     end
 

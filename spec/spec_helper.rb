@@ -4,7 +4,8 @@ Dir[File.expand_path(File.dirname(__FILE__) + "/../app/helpers/**/*.rb")].each(&
 require 'factory_girl'
 require 'fakefs/spec_helpers'
 require 'rack/test'
-# require 'rake'
+
+FactoryGirl.find_definitions
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
@@ -29,6 +30,12 @@ RSpec.configure do |conf|
   conf.after(:each, fakefs: true) do
     FakeFS.deactivate!
   end
+
+  conf.before(:suite) do
+    FactoryGirl.lint
+  end
+
+
 end
 
 def app(app = nil, &blk)

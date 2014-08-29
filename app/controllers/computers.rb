@@ -1,7 +1,6 @@
 require 'cfpropertylist'
 require_relative '../../lib/spirit/computer'
 require_relative '../../lib/spirit/computer_group'
-require_relative '../../models/host_status'
 
 Spirit::App.controllers :computers do
 
@@ -147,7 +146,15 @@ Spirit::App.controllers :computers do
 
   # Get current status of all computers
   get '/status/get/all' do
-    {}.to_plist
+    status_list = HostStatus.all
+    computers = {}
+    status_list.each do |s|
+      computers[s.identifier] = {
+        'identifier' => s.identifier
+      }
+    end
+
+    computers.to_plist
   end
 
   # Set computer information (Not implemented)

@@ -27,9 +27,13 @@ shared_examples 'a binary plist response' do
     expect(last_response.header['Content-Type']).to eq('application/octet-stream')
   end
 
+  it 'has a content length greater than zero' do
+    expect(last_response.length).to be > 0
+  end
+
   it 'is a parseable plist' do
     expect {
-      plist = CFPropertyList::List.new(:data => last_response.body)
+      plist = CFPropertyList::List.new(:data => last_response.body, :format => CFPropertyList::List::FORMAT_BINARY)
     }.to_not raise_error()
   end
 
