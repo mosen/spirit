@@ -7,7 +7,7 @@ Spirit::App.controllers :masters do
 
     list = Spirit::Master.all_dict(filesystem)
 
-    list.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    list.to_plist
   end
 
   get '/get/entry' do

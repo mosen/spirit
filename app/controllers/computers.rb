@@ -10,7 +10,7 @@ Spirit::App.controllers :computers do
     serial = params[:id]
 
     computers = Spirit::Computer.all
-    computers_plist = computers.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    computers_plist = computers.to_plist(convert_unknown_to_string: true)
 
     computers_plist
   end
@@ -50,7 +50,7 @@ Spirit::App.controllers :computers do
       }
     end
 
-    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    response.to_plist(convert_unknown_to_string: true)
   end
 
   # Get a list of computer groups
@@ -58,7 +58,7 @@ Spirit::App.controllers :computers do
     groups = Spirit::ComputerGroup.all
 
     group_names = { 'groups' => groups.keys }
-    group_names.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    group_names.to_plist
   end
 
   # Get the default group name
@@ -74,7 +74,7 @@ Spirit::App.controllers :computers do
       default_group = { 'default' => '' }
     end
 
-    default_group.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    default_group.to_plist
   end
 
   # Get a computer group object
@@ -91,7 +91,7 @@ Spirit::App.controllers :computers do
       result = {}
     end
 
-    result.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    result.to_plist(convert_unknown_to_string: true)
   end
 
   post '/groups/del/entry' do
@@ -147,7 +147,7 @@ Spirit::App.controllers :computers do
 
   # Get current status of all computers
   get '/status/get/all' do
-    {}.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    {}.to_plist
   end
 
   # Set computer information (Not implemented)

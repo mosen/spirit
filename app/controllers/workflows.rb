@@ -10,7 +10,7 @@ Spirit::App.controllers :workflows do
 
     workflows = Spirit::Workflow.all_dict
 
-    workflows.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    workflows.to_plist
   end
 
   # Read workflow

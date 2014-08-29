@@ -9,7 +9,7 @@ Spirit::App.controllers :files do
         'files' => files
     }
 
-    file_hash.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    file_hash.to_plist
   end
 
 end

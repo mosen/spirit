@@ -9,7 +9,7 @@ Spirit::App.controllers :user do
         'date' => DateTime.now().strftime('%Y-%m-%d %H:%M:%S %z')
     }
 
-    data.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    data.to_plist
   end
 
 

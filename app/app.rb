@@ -28,10 +28,10 @@ module Spirit
       set :server_config_path, ds_configuration_file
     end
 
-    raise "You cannot start Spirit without a repository" unless File.exists?(settings.repo_path)
+    raise 'You cannot start Spirit without a repository' unless File.exists?(settings.repo_path)
 
     unless File.exists?(File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist'))
-      logger.info "Databases/ByHost/group.settings.plist does not exist in your repo... creating one"
+      logger.info 'Databases/ByHost/group.settings.plist does not exist in your repo... creating one'
 
       FileUtils.cp(
           File.absolute_path('templates/group.settings.plist'),

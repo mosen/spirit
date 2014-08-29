@@ -8,7 +8,7 @@ Spirit::App.controllers :packages do
   get '/get/all' do
     serial = params[:id]
 
-    Spirit::Package.all_dict.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    Spirit::Package.all_dict.to_plist
   end
 
   # Get package
@@ -21,7 +21,7 @@ Spirit::App.controllers :packages do
       entry = {
           set_name => all_packages[set_name]
       }
-      entry.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+      entry.to_plist
     else
       404
     end
@@ -34,7 +34,7 @@ Spirit::App.controllers :packages do
 
     sets = Spirit::Package.sets
 
-    sets.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    sets.to_plist
   end
 
   # Get package set content
@@ -46,7 +46,7 @@ Spirit::App.controllers :packages do
 
     puts 'Fetch set %s' % set_name
 
-    Spirit::Package.all_dict(set_name).to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    Spirit::Package.all_dict(set_name).to_plist
   end
 
   # Delete a package

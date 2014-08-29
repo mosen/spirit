@@ -12,7 +12,7 @@ Spirit::App.controllers :scripts do
         'scripts' => files
     }
 
-    data.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    data.to_plist
   end
 
   # Read script
@@ -23,7 +23,7 @@ Spirit::App.controllers :scripts do
         'script' => script.contents
     }
 
-    data.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    data.to_plist
   end
 
   # Create script (or replace)

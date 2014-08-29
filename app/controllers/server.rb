@@ -9,13 +9,13 @@ Spirit::App.controllers :server do
         'timezone' => Time.now.utc_offset
     }
 
-    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    response.to_plist
   end
 
   # Get server information, including part of the configuration
   get '/get/info' do
     server = Spirit::Server.new settings.server
-    server.info.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    server.info.to_plist
   end
 
   # Get counts for all objects in the sidebar of the admin client
@@ -23,17 +23,17 @@ Spirit::App.controllers :server do
     serial = params[:id]
 
     server = Spirit::Server.new settings.server
-    server.stats.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    server.stats.to_plist
   end
 
   # TODO: stub
   get '/groups/get' do
-    {}.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    {}.to_plist
   end
 
   # TODO: stub
   get '/groups/get/all' do
-    { 'groups' => [] }.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    { 'groups' => [] }.to_plist
   end
 
 
@@ -50,7 +50,7 @@ Spirit::App.controllers :server do
         ]
     }
 
-    response.to_plist(plist_format: CFPropertyList::List::FORMAT_XML)
+    response.to_plist
   end
 
 end

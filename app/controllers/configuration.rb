@@ -5,7 +5,7 @@ Spirit::App.controllers :configuration do
 
   # Dump server configuration for the admin client
   get '/get' do
-    settings.server.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: false)
+    settings.server.to_plist(convert_unknown_to_string: false)
   end
 
   # Get repository info and mount command
@@ -18,7 +18,7 @@ Spirit::App.controllers :configuration do
     repo_hash = Spirit::Repository.make repository_uri, settings.server['repository']['user'], settings.server['repository']['password']
 
     logger.info "Sending repository info: %s" % repo_hash
-    repo_hash.to_plist(plist_format: CFPropertyList::List::FORMAT_XML, convert_unknown_to_string: true)
+    repo_hash.to_plist(convert_unknown_to_string: true)
   end
 
   # Set server configuration from DeployStudio Assistant
