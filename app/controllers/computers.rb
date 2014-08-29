@@ -150,7 +150,10 @@ Spirit::App.controllers :computers do
     computers = {}
     status_list.each do |s|
       computers[s.identifier] = {
-        'identifier' => s.identifier
+        'DSRemoteStatusHostInformation' => {
+            'identifier' => s.identifier
+        },
+        'date' => DateTime.new
       }
     end
 

@@ -8,12 +8,8 @@ WORKFLOW_PROGRESS_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures
 
 describe '/computers/status' do
 
-  after(:each) do
-    HostStatus.delete_all
-  end
-
   describe '/status/get/all' do
-    let(:host_status) { FactoryGirl.create :host_status }
+    let!(:host_status) { FactoryGirl.create :host_status }
 
     before do
       get '/computers/status/get/all', { 'id' => 'W1111GTM4QQ' }
@@ -26,6 +22,15 @@ describe '/computers/status' do
 
       it 'contains a key with the id of the host' do
         expect(plist_hash).to have_key(host_status.identifier)
+      end
+
+      it 'contains a valid date of last update' do
+        expect(plist_hash[host_status.identifier]).to have_key('date')
+        expect(plist_hash[host_status.identifier]['date']).to be_a(DateTime)
+      end
+
+      it 'contains the DSRemoteStatusHostInformation key' do
+        expect(plist_hash[host_status.identifier]).to have_key('DSRemoteStatusHostInformation')
       end
     end
   end
