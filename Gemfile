@@ -44,4 +44,4 @@ gem 'rspec-padrino'
 gem 'factory_girl'
 
 # Used to fake an existing DS repository in RSpec examples.
-gem 'fakefs', require: "fakefs/safe"
+gem 'fakefs', :require => "fakefs/safe"

@@ -1,9 +1,10 @@
 RACK_ENV = 'test' unless defined?(RACK_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
-require 'rack/test'
+Dir[File.expand_path(File.dirname(__FILE__) + "/../app/helpers/**/*.rb")].each(&method(:require))
 require 'factory_girl'
 require 'fakefs/spec_helpers'
-require 'rake'
+require 'rack/test'
+# require 'rake'
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
@@ -16,7 +17,7 @@ RSpec.configure do |conf|
 
   conf.before(:all) do
     authorize 'admin', 'secret'
-    header 'User-Agent', 'DeployStudio%20Admin/140710 CFNetwork/673.4 Darwin/13.3.0 (x86_64) (iMac10%2C1)'
+    header 'User-Agent', 'DeployStudio%20Admin/130904 CFNetwork/596.5 Darwin/12.5.0 (x86_64) (iMac10%2C1)'
   end
 
   # Set up repo fixture before each FakeFS spec
