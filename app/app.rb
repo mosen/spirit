@@ -46,7 +46,7 @@ module Spirit
 
     # DeployStudio supplies binary plists using 'text/xml' headers. It doesn't care about HTTP.
     before do # Set plist object on @request_payload if request content was text/xml
-      if request.media_type == 'text/xml' && request.content_length
+      if request.media_type == 'text/xml' && request.content_length.to_i > 0
         request.body.rewind
 
         begin
