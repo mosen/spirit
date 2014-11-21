@@ -50,8 +50,7 @@ module Spirit
         request.body.rewind
 
         begin
-          post_plist = CFPropertyList::List.new()
-          post_plist.value = CFPropertyList.guess(request.body.read)
+          post_plist = CFPropertyList::List.new :data => request.body.read
 
           @request_payload = CFPropertyList.native_types(post_plist.value)
         rescue CFFormatError => e

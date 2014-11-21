@@ -8,6 +8,7 @@ WORKFLOW_PROGRESS_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures
 
 describe '/computers/status' do
 
+
   describe '/status/get/all' do
     let!(:host_status) { FactoryGirl.create :host_status }
 
@@ -35,21 +36,20 @@ describe '/computers/status' do
     end
   end
 
+  # Post a Repository access error status
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation (status without host info)' do
-    pending
+    before do
+      post(
+          '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+          STATUS_REPO_ERROR,
+          { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      )
+    end
 
-  #   before do
-  #     post(
-  #         '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
-  #         STATUS_REPO_ERROR,
-  #         { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
-  #     )
-  #   end
-  #
-  #   it 'creates a row with identifier from the `id` parameter' do
-  #     expect(HostStatus.where('identifier = ?', ['W1111GTM4QQ'])).to_not be_empty
-  #   end
-  #
+    it 'creates a row with identifier from the `id` parameter' do
+      expect(HostStatus.where('identifier = ?', ['W1111GTM4QQ'])).to_not be_empty
+    end
+
   end
   #
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation (posting twice with the same serial number)' do
@@ -70,15 +70,15 @@ describe '/computers/status' do
   #
   end
   #
-  describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
+  describe '/status/set/entry?tag=DSRemoteStatusHostInformation (repository access error)' do
     pending
-  #   before do
-  #     post(
-  #         '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
-  #         STATUS_WAITING_PLIST,
-  #         { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
-  #     )
-  #   end
+    # before do
+    #   post(
+    #       '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+    #       STATUS_WAITING_PLIST,
+    #       { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+    #   )
+    # end
   #
   #   it 'creates a status entry for the mock status update' do
   #     # TODO: query for mock status

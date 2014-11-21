@@ -172,8 +172,6 @@ Spirit::App.controllers :computers do
     201
   end
 
-# DeployStudio Runtime POSTs status about its running state.
-# It posts quite frequently
   post '/status/set/entry' do
     serial = params[:id]
     tag = params[:tag] # Indicates the `type` of info posted (aka category)

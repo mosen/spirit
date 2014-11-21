@@ -99,7 +99,7 @@ describe '/computers', fakefs: true do
       end
 
       it 'creates a plist named after the serial number in the repository' do
-        expect(File.exists?(COMPUTER_MOCK_PATH)).to be_true
+        expect(File.exists?(COMPUTER_MOCK_PATH)).to be true
       end
 
       # Group setting inheritance
@@ -277,7 +277,7 @@ describe '/computers', fakefs: true do
     it_behaves_like 'a successful post'
 
     it 'creates a plist file named after the primary key' do
-      expect(File.exists?(File.expand_path(computers_dir, 'W1111GTM4Q2.plist'))).to be_true
+      expect(File.exists?(File.expand_path(computers_dir, 'W1111GTM4Q2.plist'))).to be true
     end
 
     # TODO: verify that respository plist is identical to set plist
@@ -292,7 +292,7 @@ describe '/computers', fakefs: true do
     it_behaves_like 'a successful post'
 
     it 'deletes the plist file relating to the specified id' do
-      expect(File.exists?('W1111GTM4QQ.plist')).to be_false
+      expect(File.exists?('W1111GTM4QQ.plist')).to be false
     end
   end
 

@@ -58,7 +58,7 @@ describe '/scripts', fakefs: true do
     it_behaves_like 'a successful post'
 
     it 'removes the mock script' do
-      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be false
     end
   end
 
@@ -70,8 +70,8 @@ describe '/scripts', fakefs: true do
     it_behaves_like 'a successful post'
 
     it 'renames the mock script' do
-      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be_false
-      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock_renamed.sh'))).to be_true
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'))).to be false
+      expect(File.exists?(File.join(SCRIPTS_MOCK_PATH, 'mock_renamed.sh'))).to be true
     end
   end
 

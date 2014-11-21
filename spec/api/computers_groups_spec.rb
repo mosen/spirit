@@ -14,6 +14,51 @@ describe '/computers/groups', fakefs: true do
     end
   end
 
+  let(:group_template) {
+    {
+        'cn' => 'nameprefix',
+        'dstudio-serial-number' => '',
+        'dstudio-host-new-network-location' => 'NO',
+        'dstudio-hostname' => 'hostnameprefix',
+        'dstudio-auto-reset-workflow' => 'NO',
+        'dstudio-auto-disable' => 'NO',
+        'dstudio-disabled' => 'NO',
+        'dstudio-host-delete-other-locations' => 'NO',
+        'dstudio-group-name' => 'Mock Group',
+        'dstudio-bootcamp-windows-product-key' => '',
+        'dstudio-bootcamp-windows-computer-name' => '',
+        'dstudio-host-interfaces' => {
+            'en0' => {
+                'dstudio-host-airport-name' => '',
+                'dstudio-router-ip' => '',
+                'dstudio-host-auto-discovery-proxy' => 'NO',
+                'dstudio-search-domains' => '',
+                'dstudio-host-http-proxy-server' => '',
+                'dstudio-host-airport' => 'NO',
+                'dstudio-host-interfaces' => 'en0',
+                'dstudio-host-ftp-proxy-port' => '',
+                'dstudio-host-auto-config-proxy' => 'NO',
+                'dstudio-host-https-proxy' => 'NO',
+                'dstudio-host-ftp-proxy-server' => '',
+                'dstudio-host-ip' => '',
+                'dstudio-host-https-proxy-port' => '',
+                'dstudio-host-airport-password' => '',
+                'dstudio-dns-ips' => '',
+                'dstudio-host-https-proxy-server' => '',
+                'dstudio-host-http-proxy-port' => '',
+                'dstudio-subnet-mask' => '',
+                'dstudio-host-ftp-proxy' => 'NO',
+                'dstudio-host-http-proxy' => 'NO',
+                'dstudio-host-auto-config-proxy-url' => ''
+            }
+        },
+        'dstudio-xsan-license' => '',
+        'dstudio-group-hosname-index-first-value' => 1,
+        'dstudio-host-location' => '',
+        'dstudio-group-hosname-index-length' => 1
+    }
+  }
+
   before(:each) do
     stub_groups
   end
@@ -166,8 +211,8 @@ describe '/computers/groups', fakefs: true do
   # Update group detail
   describe '/set/entry' do
     before do
-      group_content_plist = { 'test' => 'value' }.to_plist
-      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'application/octet-stream' }
+      group_content_plist = group_template.to_plist
+      post '/computers/groups/set/entry?id=MockGroup', group_content_plist, { 'CONTENT_TYPE' => 'text/xml' }
     end
 
     it_behaves_like 'a successful post'
@@ -177,8 +222,8 @@ describe '/computers/groups', fakefs: true do
       groups = CFPropertyList.native_types(plist.value)
 
       expect(groups).to have_key('MockGroup')
-      expect(groups['MockGroup']).to have_key('test')
-      expect(groups['MockGroup']['test']).to eq('value')
+      expect(groups['MockGroup']).to have_key('dstudio-group-name')
+      expect(groups['MockGroup']['dstudio-group-name']).to eq('Mock Group')
     end
 
   end
