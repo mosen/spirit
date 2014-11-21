@@ -44,9 +44,14 @@ Spirit::App.controllers :scripts do
 
   # Rename script
   post '/ren/entry' do
-    script = Spirit::Script.new params[:id]
-    script.rename! params[:new_id]
+    if params[:id] && params[:new_id]
 
-    201
+      script = Spirit::Script.new params[:id]
+      script.rename! params[:new_id]
+
+      201
+    else
+      400
+    end
   end
 end

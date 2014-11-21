@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_examples_http'
+require 'shared_contexts'
 require 'cfpropertylist'
 
 SCRIPTS_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Scripts')
@@ -64,7 +65,7 @@ describe '/scripts', fakefs: true do
 
   describe '/ren/entry' do
     before do
-      post '/scripts/ren/entry', { 'id' => 'mock.sh', 'newid' => 'mock_renamed.sh' }
+      post '/scripts/ren/entry', { 'id' => 'mock.sh', 'new_id' => 'mock_renamed.sh' }
     end
 
     it_behaves_like 'a successful post'
@@ -76,8 +77,12 @@ describe '/scripts', fakefs: true do
   end
 
   describe '/set/entry' do
+    let(:mock_script) {
+      { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
+    }
+
     before do
-      post '/scripts/set/entry?id=mock_post.sh', { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY), { 'Content-Type' => 'application/octet-stream' }
+      post '/scripts/set/entry?id=mock_post.sh', mock_script, { 'Content-Type' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'a successful post'

@@ -286,7 +286,7 @@ describe '/computers', fakefs: true do
   describe '/del/entries' do
     before do
       delete_entries_plist = { 'ids' => [ 'W1111GTM4QQ' ] }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
-      post '/computers/del/entries', delete_entries_plist, { 'CONTENT_TYPE' => 'application/octet-stream' }
+      post '/computers/del/entries', delete_entries_plist, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'a successful post'

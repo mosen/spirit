@@ -5,8 +5,12 @@ require 'shared_contexts'
 STATUS_WAITING_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/waiting.plist'))
 STATUS_REPO_ERROR = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/repo_error.plist'))
 WORKFLOW_PROGRESS_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/workflow.plist'))
+STATUS_SELECTOR_PLIST = File.read(File.expand_path(__FILE__ + '/../../fixtures/computers/status/workflow_selector.plist'))
 
 describe '/computers/status' do
+  before(:each) do
+    HostStatus.delete_all
+  end
 
 
   describe '/status/get/all' do
@@ -51,34 +55,33 @@ describe '/computers/status' do
     end
 
   end
-  #
+
   describe '/status/set/entry?tag=DSRemoteStatusHostInformation (posting twice with the same serial number)' do
-    pending
-  #   before do
-  #     2.times do
-  #       post(
-  #           '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
-  #           STATUS_REPO_ERROR,
-  #           { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
-  #       )
-  #     end
-  #   end
-  #
-  #   it 'does not create a duplicate row' do
-  #     expect(HostStatus.count).to eq(1)
-  #   end
-  #
+    before do
+      2.times do
+        post(
+            '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+            STATUS_REPO_ERROR,
+            { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+        )
+      end
+    end
+
+    it 'does not create a duplicate row' do
+      expect(HostStatus.count).to eq(1)
+    end
+
   end
-  #
-  describe '/status/set/entry?tag=DSRemoteStatusHostInformation (repository access error)' do
-    pending
-    # before do
-    #   post(
-    #       '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
-    #       STATUS_WAITING_PLIST,
-    #       { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
-    #   )
-    # end
+
+  # Post status - Waiting at workflow selector
+  describe '/status/set/entry?tag=DSRemoteStatusHostInformation' do
+    before do
+      post(
+          '/computers/status/set/entry?id=W1111GTM4QQ&tag=DSRemoteStatusHostInformation',
+          STATUS_SELECTOR_PLIST,
+          { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      )
+    end
   #
   #   it 'creates a status entry for the mock status update' do
   #     # TODO: query for mock status

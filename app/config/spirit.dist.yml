@@ -6,10 +6,10 @@ repository_root: './ds_repo'
 
 # Server version reported to the client, should match if you don't want
 # warnings.
-version: '1.6.1'
+version: '1.6.12'
 
 # Our version number, prefixed with the DS server version it emulates
-spirit_version: '1.6.11.1'
+spirit_version: '1.6.12.1'
 
 # Admin credentials - Eventually this will tie into some actual authentication
 # service
