@@ -15,3 +15,11 @@ spirit_version: '1.6.12.1'
 # service
 username: 'admin'
 password: 'secret'
+
+# Response format - Changed to binary sometime around 1.6.8
+# If not true, reverts to xml encoded property lists.
+respond_binary: True
+
+# The OS X minor version to report that this system is running.
+# Default 9 (10.9)
+host_system_version: 9

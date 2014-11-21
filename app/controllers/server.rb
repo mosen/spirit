@@ -15,7 +15,7 @@ Spirit::App.controllers :server do
   # Get server information, including part of the configuration
   get '/get/info' do
     server = Spirit::Server.new settings.server
-    server.info.to_plist
+    server.info(@request).to_plist
   end
 
   # Get counts for all objects in the sidebar of the admin client

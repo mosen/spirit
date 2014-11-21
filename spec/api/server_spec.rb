@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_examples_http'
+require 'shared_contexts'
 require 'cfpropertylist'
 
 describe '/server' do
@@ -15,7 +16,75 @@ describe '/server' do
 
     it_behaves_like 'a binary plist response'
 
+    context 'with parsed plist response' do
+      include_context 'with parsed plist response'
 
+      it 'contains the version spirit is developing against' do
+        expect(plist_hash['version']).to eql('1.6.12')
+      end
+
+      it 'contains a host_ip key' do
+        expect(plist_hash['host_ip']).to be
+      end
+
+      it 'contains a protocol-version key' do
+        expect(plist_hash['protocol-version']).to be
+      end
+
+      it 'contains a repository_url_preview key' do
+        expect(plist_hash['repository_url_preview']).to be
+      end
+
+      it 'contains a network_interfaces key, which is a dictionary' do
+        expect(plist_hash['network_interfaces']).to be
+        expect(plist_hash['network_interfaces']).to be_a(Hash)
+      end
+
+      it 'contains a server_url key' do
+        expect(plist_hash['server_url']).to be
+      end
+
+      it 'contains a host_system_version key' do
+        expect(plist_hash['host_system_version']).to be
+      end
+
+      it 'contains a computer_primary_key key' do
+        expect(plist_hash['computer_primary_key']).to be
+      end
+
+      it 'contains a multicast_stream_datarate_max key' do
+        expect(plist_hash['multicast_stream_datarate_max']).to be
+      end
+
+      it 'contains a secure_server key indicating whether SSL is available YES/NO' do
+        expect(plist_hash['secure_server']).to be_a(String)
+      end
+
+      it 'contains a version string' do
+        expect(plist_hash['version-string']).to be
+      end
+
+      it 'contains a multicast_client_datarate_min' do
+        expect(plist_hash['multicast_client_datarate_min']).to be
+      end
+
+      it 'contains a role key' do
+        expect(plist_hash['role']).to be
+      end
+
+      it 'contains a host name' do
+        expect(plist_hash['host_name']).to be
+      end
+
+      it 'contains a status code' do
+        expect(plist_hash['status']).to be
+        expect(plist_hash['status']).to be_a(Numeric)
+      end
+
+      it 'contains a server name' do
+        expect(plist_hash['name']).to be
+      end
+    end
   end
 
   describe '/get/stats' do
