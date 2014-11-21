@@ -9,6 +9,12 @@ describe '/server' do
   end
 
   describe '/get/info' do
+    before do
+      get '/server/get/info'
+    end
+
+    it_behaves_like 'a binary plist response'
+
 
   end
 

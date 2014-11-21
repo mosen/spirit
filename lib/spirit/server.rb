@@ -21,7 +21,7 @@ module Spirit
       repo_uri = URI.parse(@config['repository']['url'])
       repository_uri_preview = "%s://%s:*@%s%s" % [repo_uri.scheme, @config['repository']['user'], repo_uri.hostname, repo_uri.path]
 
-      {
+      info = {
           'computer_primary_key' => @config['repository']['hostPrimaryKey'],
           'host_ip' => '127.0.0.1', # TODO: Get IP from Rack
           'host_name' => Socket.gethostname,
@@ -34,12 +34,15 @@ module Spirit
           },
           'protocol_version' => @config['version'],
           'repository_url_preview' => repository_uri_preview,
-          'role' => @config['role'],
-          'secure_server' => false, # TODO: make true if ssl certificate configured
+          'role' => @config['role'], # master | ?
+          'secure_server' => 'NO', # TODO: make true if ssl certificate configured
           'status' => 0, # TODO: Not sure how this is applicable
-          'version' => '1.6.11',
-          'version-string' => 'Spirit Server 1.6.11.1'
+          'version' => '1.6.12',
+          'version-string' => 'Spirit Server 1.6.12.1',
+          'server_url' => 'http://localhost:60080',
+          'host_system_version' => '9' # Host major system version
       }
+      info
     end
 
     def stats
