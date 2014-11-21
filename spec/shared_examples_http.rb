@@ -23,9 +23,10 @@ shared_examples 'a binary plist response' do
     expect(last_response.status).to eq(200)
   end
 
-  it 'has a content type of application/octet-stream' do
-    expect(last_response.header['Content-Type']).to eq('application/octet-stream')
-  end
+  # DeployStudio now sets Content-Type as empty string. It assumes all Request/Response bodies to be bplist
+  # it 'has a content type of application/octet-stream' do
+  #   expect(last_response.header['Content-Type']).to eq('application/octet-stream')
+  # end
 
   it 'has a content length greater than zero' do
     expect(last_response.length).to be > 0
@@ -34,7 +35,7 @@ shared_examples 'a binary plist response' do
   it 'is a parseable plist' do
     expect {
       plist = CFPropertyList::List.new(:data => last_response.body, :format => CFPropertyList::List::FORMAT_BINARY)
-    }.to_not raise_error()
+    }.to_not raise_error
   end
 
   it 'is in binary plist (bplist) format' do

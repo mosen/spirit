@@ -92,6 +92,13 @@ describe '/computers/status' do
   #     expect(HostStatus.where('identifier = ?', ['W1111GTM4QQ'])).to_not be_empty
   #   end
   end
+
+
+  # The runtime client will post a zero length request, I assume to init workflow status information for this id
+  describe '/status/set/entry?id=SERIAL&tag=DSRemoteStatusWorkflowsInformation (Content Length 0)' do
+    pending
+  end
+
   #
   describe '/status/set/entry?tag=DSRemoteStatusWorkflowsInformation' do
     pending

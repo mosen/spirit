@@ -12,6 +12,14 @@ describe '/workflows' do
     it_behaves_like 'a binary plist response'
   end
 
+  # After 'At workflow selector status' is posted, this is called to retrieve available workflows (In netboot environment).
+  describe '/get/all?id=SERIAL&groups=&client=runtime' do
+    before do
+      get '/workflows/get/all', { 'id' => 'W1111GTM4QQ', 'groups' => '', 'client' => 'runtime' }
+    end
+  end
+
+  # Get the content of a workflow. Used by DS Admin and when a runtime begins to execute a workflow.
   describe '/get/entry?id=' do
     before do
       get '/workflows/get/entry', { 'id' => 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEFFFFFFFF' }
