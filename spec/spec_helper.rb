@@ -18,7 +18,9 @@ RSpec.configure do |conf|
 
   conf.before(:all) do
     authorize 'admin', 'secret'
-    header 'User-Agent', 'DeployStudio%20Admin/130904 CFNetwork/596.5 Darwin/12.5.0 (x86_64) (iMac10%2C1)'
+    header 'User-Agent', 'DeployStudio%20Admin/141021 CFNetwork/673.5 Darwin/13.4.0 (x86_64) (iMac10%2C1)'
+
+    @group_settings_path = File.expand_path(__FILE__ + '/../ds_repo/Databases/ByHost/group.settings.plist')
   end
 
   # Set up repo fixture before each FakeFS spec
