@@ -17,3 +17,9 @@ Response: Hash of workflow.plist - workflow content
 
 Status updates:
 POST /computers/status/set/entry?id=(SERIAL)&tag=DSRemoteStatusHostInformation
+
+
+Assistant Configuration Checklist:
+
+
+Replica Checklist:

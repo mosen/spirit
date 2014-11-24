@@ -26,9 +26,10 @@ Spirit::App.controllers :server do
     server.stats.to_plist
   end
 
-  # TODO: stub
+  # When choosing groups from the directory service using the DeployStudio Assistant,
+  # This is called with a ?search parameter to determine valid groups
   get '/groups/get' do
-    {}.to_plist
+    {}.to_plist # Format is { 'groups' => ['groupname', 'DOMAIN\groupname'] }
   end
 
   # TODO: stub

@@ -23,7 +23,18 @@ Spirit::App.controllers :configuration do
 
   # Set server configuration from DeployStudio Assistant
   post '/set' do
-    logger.info @request_payload
+    if @request_payload['version'] == 1.0
+      require 'pp'
+      pp @request_payload
+    else
+      logger.info "Attempted to set configuration using unsupported version: %s" % @request_payload['version']
+      400
+    end
+
+    # If this server is to be a replica, then the configuration will contain role: replica, and a dssmaster dict
+    # with the master login/password/url and which items to sync, the sync numbers indicate 0 - no sync, 1 - sync (pull), 2 - bidir sync
+
+
 
     configuration_yaml = @request_payload.to_yaml
     File.open(settings.server_config_path, 'w') do |f|
