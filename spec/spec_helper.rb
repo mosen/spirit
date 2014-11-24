@@ -10,7 +10,7 @@ FactoryGirl.find_definitions
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
-  conf.include FakeFS::SpecHelpers, fakefs: true
+  conf.include FakeFS::SpecHelpers
 
   conf.expect_with :rspec do |c|
     c.syntax = :expect
@@ -24,12 +24,12 @@ RSpec.configure do |conf|
   end
 
   # Set up repo fixture before each FakeFS spec
-  conf.before(:each, fakefs: true) do
+  conf.before(:each, use_fakefs: true) do
     @group_settings_default = File.read 'spec/fixtures/computers/group.settings.plist'
     FakeFS.activate!
   end
 
-  conf.after(:each, fakefs: true) do
+  conf.after(:each, use_fakefs: true) do
     FakeFS.deactivate!
   end
 

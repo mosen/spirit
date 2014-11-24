@@ -4,9 +4,9 @@ require 'cfpropertylist'
 
 PACKAGES_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Packages')
 
-describe '/packages/sets', fakefs: true do
+describe '/packages/sets' do
   def stub_sets
-
+    FileUtils.mkdir_p(File.join(PACKAGES_PATH, 'Package Set 1'))
   end
 
   before(:each) do

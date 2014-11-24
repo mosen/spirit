@@ -67,6 +67,7 @@ Replicate storage method for those.
     - Honor assistant and admin group memberships.
     - Spirit needs ability to decode the password set by DS Assistant for the repo in order to supply it to the runtime.
     - Spirit does not re-read configuration after DS Assistant runs.
++ Zeroconf/Bonjour announcement of service `_deploystudio._tcp`.
 
 ### Modules
 

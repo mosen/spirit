@@ -38,4 +38,28 @@ describe '/packages' do
 
   end
 
+  describe '/get/all listing non-flat bundles', use_fakefs: true do
+
+    before do
+      packages = File.expand_path(File.dirname(__FILE__) + "/../../ds_repo/Packages")
+      FileUtils.mkdir_p(File.join(packages, "Bundle.pkg"))
+      FileUtils.mkdir_p(File.join(packages, "Bundle.pkg", "Contents"))
+
+      get '/packages/get/all', { 'id' => 'W1111GTM4QQ' }
+    end
+
+    let (:plist_hash) {
+      plist = CFPropertyList::List.new(:data => last_response.body)
+      CFPropertyList.native_types(plist.value)
+    }
+
+    it 'contains the mock package bundle' do
+      expect(plist_hash).to have_key('Bundle.pkg')
+    end
+
+    it 'does not list any sub items for the mock bundle' do
+      expect(plist_hash['Bundle.pkg']['items']).to be < 1
+    end
+  end
+
 end

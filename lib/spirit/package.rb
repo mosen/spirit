@@ -7,11 +7,11 @@ module Spirit
 
       # Get all packages in the root or given subdir
       def all_dict(subdir='')
-        packages_dir = Dir.new(File.join(@path, subdir))
+        packages_dir = File.join(@path, subdir)
         package_list = {}
 
-        packages_dir.each do |entry|
-          full_path = File.join(packages_dir.path, entry)
+        Dir.foreach(packages_dir) do |entry|
+          full_path = File.join(packages_dir, entry)
 
           next if entry =~ /^\./
 
@@ -21,14 +21,15 @@ module Spirit
           }
 
           if File.directory? full_path
+
             children = Dir.entries(full_path).reject do |name|
-              name[0] == '.'
+              name[0] == '.' || File.exists?(File.join(full_path, name))
             end
 
             stats = File.lstat(full_path)
 
             package_list[entry]['items'] = children.count
-            package_list[entry]['size'] = stats.size
+            package_list[entry]['size'] = 0 # File.size(full_path)
           end
         end
 
@@ -36,16 +37,16 @@ module Spirit
       end
 
       # Get all package sets (basically just directories)
+      # Take care not to enumerate bundles as package sets
       def sets
-        packages_dir = Dir.new(@path)
-
         sets = {}
 
-        packages_dir.each do |entry|
+        Dir.foreach(@path) do |entry|
           full_path = File.join(@path, entry)
 
           next if entry =~ /^\./
           next unless File.directory? full_path
+          next if Dir.exists? File.join(full_path, 'Contents') # Exclude bundles
 
           children = Dir.entries(full_path).reject do |name|
             name[0] == '.'
@@ -57,7 +58,7 @@ module Spirit
               'items' => children.count,
               'name' => entry,
               'path' => File.join(@path, entry),
-              'size' => stats.size
+              'size' => 0, #File.size(File.join(@path, entry))
           }
         end
 
