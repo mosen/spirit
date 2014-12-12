@@ -61,7 +61,8 @@ This project is MIT licensed.
 Replicate storage method for those.
 + Use an actual authentication source that is user configurable.
 + Server configuration via DeployStudio Assistant
-    - SSL options will not be honored, I cannot enumerate certificates because you could be using any httpd
+    - SSL options will not be honored, I cannot enumerate certificates because you could be using any httpd.
+      - How can we realistically configure Spirit to start up under WEBrick/thin/passenger/unicorn with SSL
     - Set listen port numbers
     - Reject computers not defined in computers list.
     - Honor assistant and admin group memberships.

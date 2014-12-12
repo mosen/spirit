@@ -45,3 +45,7 @@ gem 'factory_girl'
 
 # Used to fake an existing DS repository in RSpec examples.
 gem 'fakefs', :require => "fakefs/safe"
+
+
+# Announce deploystudio service on local subnet
+gem 'dnssd'

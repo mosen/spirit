@@ -2,6 +2,8 @@
 
 Mostly notes to myself.
 
+- DNSSD registration so that Admin/Assistant show the spirit server as valid deploystudio hosts on the local subnet
+
 Bootup checklist:
 
 - GET /user/get/credentials?uid=admin (w/ http basic auth supplied)
@@ -23,3 +25,10 @@ Assistant Configuration Checklist:
 
 
 Replica Checklist:
+
+- Replica authenticates to master
+- Replica gets information about Repository configuration by requesting /configuration/get/repository?client_ip=my.ip
+- Replica replicates repository by mounting afp (probably mount_smb or nfs if the repo is hosted via those protocols)
+and simply copies the contents to the locally specified repository.
+- Sync has to run on a schedule
+- Make a rake task to force sync from master

@@ -19,6 +19,7 @@ GEM
     backports (3.6.4)
     builder (3.2.2)
     diff-lcs (1.2.5)
+    dnssd (2.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     fakefs (0.6.0)
@@ -125,6 +126,7 @@ PLATFORMS
 DEPENDENCIES
   CFPropertyList
   activerecord
+  dnssd
   factory_girl
   fakefs
   padrino (= 0.12.3)
