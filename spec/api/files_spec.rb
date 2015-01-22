@@ -4,7 +4,7 @@ require 'cfpropertylist'
 
 FILES_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Files/testfile.txt')
 
-describe '/files', fakefs: true do
+describe '/files', use_fakefs: true do
   def stub_files
     FileUtils.mkdir_p File.dirname(FILES_PATH)
     File.open File.expand_path(FILES_PATH), 'w' do |f|

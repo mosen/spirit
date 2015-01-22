@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
-describe '/masters' do
+describe '/masters', use_fakefs: true do
 
   describe '/get/all' do
 

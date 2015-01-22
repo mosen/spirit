@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
-describe '/workflows' do
+describe '/workflows', use_fakefs: true do
 
   describe '/get/all' do
     before do

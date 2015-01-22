@@ -6,7 +6,7 @@ require 'cfpropertylist'
 SCRIPTS_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Scripts')
 SCRIPT_MOCK_CONTENT = "#!/bin/sh\n"
 
-describe '/scripts', fakefs: true do
+describe '/scripts', use_fakefs: true do
   def stub_scripts
     FileUtils.mkdir_p SCRIPTS_MOCK_PATH
     File.open(File.join(SCRIPTS_MOCK_PATH, 'mock.sh'), 'w') do |f|

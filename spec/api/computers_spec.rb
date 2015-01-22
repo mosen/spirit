@@ -6,7 +6,7 @@ require 'cfpropertylist'
 COMPUTER_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/W1111GTM4QQ.plist')
 GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/group.settings.plist')
 
-describe '/computers', fakefs: true do
+describe '/computers', use_fakefs: true do
   def stub_groups
     FileUtils.mkdir_p File.dirname(GROUP_SETTINGS_PATH)
     File.open GROUP_SETTINGS_PATH, 'w' do |f|

@@ -3,7 +3,7 @@ require 'shared_examples_http'
 require 'shared_contexts'
 require 'cfpropertylist'
 
-describe '/server' do
+describe '/server', use_fakefs: true do
 
   describe '/get/date' do
 

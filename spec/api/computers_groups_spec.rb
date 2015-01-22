@@ -5,7 +5,7 @@ require 'cfpropertylist'
 
 GROUP_SETTINGS_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Databases/ByHost/group.settings.plist')
 
-describe '/computers/groups', fakefs: true do
+describe '/computers/groups', use_fakefs: true do
 
   def stub_groups
     FileUtils.mkdir_p File.dirname(GROUP_SETTINGS_PATH)

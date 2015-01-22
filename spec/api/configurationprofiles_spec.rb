@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'shared_contexts'
 
-describe '/configurationprofiles', fakefs: true do
+describe '/configurationprofiles', use_fakefs: true do
 
   # TODO: stub enrollment and trust profiles
 
