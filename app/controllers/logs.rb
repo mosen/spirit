@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/log'
-
 Spirit::App.controllers :logs do
 
   get '/get/entry' do

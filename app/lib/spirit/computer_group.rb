@@ -9,14 +9,19 @@ module Spirit
       attr_accessor :groups_plist # Path to group settings plist
 
       def all
-        plist = CFPropertyList::List.new(:file => @groups_plist)
-        groups = CFPropertyList.native_types(plist.value)
+        if File.exists?(@groups_plist)
+          plist = CFPropertyList::List.new(:file => @groups_plist)
 
-        groups
+          CFPropertyList.native_types(plist.value)
+        else
+          logger.error 'Computer groups file does not exist at path: %s', @groups_plist
+        end
+
       end
 
       def default
-        plist = CFPropertyList::List.new(:file => @groups_plist)
+        plist = CFPropertyList::List
+                    .new(:file => @groups_plist)
         groups = CFPropertyList.native_types(plist.value)
 
         groups['_dss_default']['dstudio-group-default-group-name']

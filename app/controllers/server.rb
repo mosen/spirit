@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/server'
-
 Spirit::App.controllers :server do
 
   # Get current date on server
@@ -14,7 +12,7 @@ Spirit::App.controllers :server do
 
   # Get server information, including part of the configuration
   get '/get/info' do
-    server = Spirit::Server.new settings.server
+    server = Spirit::Server.new settings
     server.info(@request).to_plist
   end
 
@@ -22,7 +20,7 @@ Spirit::App.controllers :server do
   get '/get/stats' do
     serial = params[:id]
 
-    server = Spirit::Server.new settings.server
+    server = Spirit::Server.new settings
     server.stats.to_plist
   end
 

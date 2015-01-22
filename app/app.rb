@@ -4,6 +4,7 @@ require 'sinatra/config_file'
 
 module Spirit
   class App < Padrino::Application
+    register Padrino::DNSSD
     register Padrino::Rendering
     register Padrino::Mailer
     register Padrino::Helpers
@@ -18,6 +19,8 @@ module Spirit
     # This ensures that my implementation isn't mixed with the native configuration.
     config_file 'config/spirit.yml'
 
+    # DeployStudio config file - will retain the exact same structure as DS expects. Extensions are in config/spirit.yml
+    # Reason: config can be written by a remote DeployStudio Assistant with no modification to Spirits config storage.
     ds_configuration_file = File.join(__dir__, 'config', 'server.yml')
     ds_configuration = YAML.load(File.read(ds_configuration_file))
 
@@ -54,9 +57,9 @@ module Spirit
 
           @request_payload = CFPropertyList.native_types(post_plist.value)
         rescue CFFormatError => e
-          puts 'Request could not be parsed as a Property List!'
-          puts 'Request Content:'
-          puts request.body.read
+          logger.error "The client sent an invalid request, it did not contain a property list."
+          logger.debug "Request content follows"
+          logger.debug request.body.read
 
           raise e
         end
@@ -65,14 +68,14 @@ module Spirit
       content_type 'application/octet-stream'
     end
 
-    require_relative '../lib/spirit/master'
-    require_relative '../lib/spirit/package'
-    require_relative '../lib/spirit/script'
-    require_relative '../lib/spirit/log'
-    require_relative '../lib/spirit/workflow'
-    require_relative '../lib/spirit/copy_file'
-    require_relative '../lib/spirit/computer'
-    require_relative '../lib/spirit/computer_group'
+    # require_relative '../lib/spirit/master'
+    # require_relative '../lib/spirit/package'
+    # require_relative '../lib/spirit/script'
+    # require_relative '../lib/spirit/log'
+    # require_relative '../lib/spirit/workflow'
+    # require_relative '../lib/spirit/copy_file'
+    # require_relative '../lib/spirit/computer'
+    # require_relative '../lib/spirit/computer_group'
 
     Computer.path = File.join(settings.repo_path, 'Databases', 'ByHost')
     Computer.primary_key = settings.server['repository']['hostPrimaryKey']

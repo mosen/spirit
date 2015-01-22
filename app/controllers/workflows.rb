@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/workflow'
-
 Spirit::App.controllers :workflows do
 
   # Workflow index

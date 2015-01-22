@@ -1,6 +1,10 @@
 # This name is reported to the client and shown in some dialogs
 name: 'Spirit Server'
 
+# The server will report this as the hostname of the Spirit server.
+# If left undefined, will default to the system hostname.
+#hostname: 'spirit.local'
+
 # Local path to the repository, relative to rack start directory
 repository_root: './ds_repo'
 

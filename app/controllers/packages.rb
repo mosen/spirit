@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/package'
-
 Spirit::App.controllers :packages do
 
   # Get an index of the Package directory.

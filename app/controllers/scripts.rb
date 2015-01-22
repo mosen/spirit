@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/script'
-
 Spirit::App.controllers :scripts do
 
   # Script index

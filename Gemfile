@@ -21,7 +21,7 @@ gem 'activerecord', :require => "active_record"
 # Test requirements
 
 # Padrino Stable Gem
-gem 'padrino', '0.12.3'
+gem 'padrino', '0.12.4'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

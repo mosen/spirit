@@ -23,6 +23,8 @@ module Spirit
             workflows[filename] = CFPropertyList.native_types(plist.value)
           rescue NoMethodError
             next
+          rescue CFFormatError
+            logger.error "Failed to parse property list at path: #{filename}"
           end
         end
 

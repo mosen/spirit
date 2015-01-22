@@ -1,6 +1,4 @@
 require 'cfpropertylist'
-require_relative '../../lib/spirit/computer'
-require_relative '../../lib/spirit/computer_group'
 
 Spirit::App.controllers :computers do
 

@@ -1,5 +1,4 @@
 require 'yaml'
-require_relative '../../lib/spirit/repository'
 
 Spirit::App.controllers :configuration do
 

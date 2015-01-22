@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/copy_file'
-
 Spirit::App.controllers :files do
 
   get '/get/all' do

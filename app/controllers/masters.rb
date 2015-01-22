@@ -1,5 +1,3 @@
-require_relative '../../lib/spirit/master'
-
 Spirit::App.controllers :masters do
 
   get '/get/all' do
