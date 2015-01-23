@@ -2,7 +2,16 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
+MASTERS_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Masters')
+
 describe '/masters', use_fakefs: true do
+  def mock_masters
+
+  end
+
+  before(:each) do
+    mock_masters
+  end
 
   describe '/get/all' do
 

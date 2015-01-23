@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
-describe '/packages' do
+describe '/packages', use_fakefs: true do
 
 
   describe '/get/all' do
@@ -38,7 +38,7 @@ describe '/packages' do
 
   end
 
-  describe '/get/all listing non-flat bundles', use_fakefs: true do
+  describe '/get/all listing non-flat bundles' do
 
     before do
       packages = File.expand_path(File.dirname(__FILE__) + "/../../ds_repo/Packages")

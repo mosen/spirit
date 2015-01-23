@@ -24,13 +24,11 @@ RSpec.configure do |conf|
   end
 
   # Set up repo fixture before each FakeFS spec
-  conf.before(:each, use_fakefs: true) do
+  conf.before(:each) do
     @group_settings_default = File.read 'spec/fixtures/computers/group.settings.plist'
-    FakeFS.activate!
   end
 
-  conf.after(:each, use_fakefs: true) do
-    FakeFS.deactivate!
+  conf.after(:each) do
   end
 
   conf.before(:suite) do

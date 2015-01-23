@@ -76,13 +76,17 @@ describe '/scripts', use_fakefs: true do
     end
   end
 
+
+  # Currently failing because Rack::Test expects post body to be UTF-8 not binary
+  # Even when Content-Type is application/octet-stream
   describe '/set/entry' do
+
     let(:mock_script) {
       { 'script_file' => "#/bin/sh\n" }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
     }
 
     before do
-      post '/scripts/set/entry?id=mock_post.sh', mock_script, { 'Content-Type' => 'text/xml;charset=utf8' }
+      post '/scripts/set/entry?id=mock_post.sh', mock_script, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'a successful post'
