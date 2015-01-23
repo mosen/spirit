@@ -1,6 +1,7 @@
 require 'yaml'
 require 'cfpropertylist'
 require 'sinatra/config_file'
+require_relative './lib/rack/dnssd'
 
 module Spirit
   class App < Padrino::Application
@@ -57,8 +58,8 @@ module Spirit
 
           @request_payload = CFPropertyList.native_types(post_plist.value)
         rescue CFFormatError => e
-          logger.error "The client sent an invalid request, it did not contain a property list."
-          logger.debug "Request content follows"
+          logger.error 'The client sent an invalid request, it did not contain a property list.'
+          logger.debug 'Request content follows'
           logger.debug request.body.read
 
           raise e
@@ -67,15 +68,6 @@ module Spirit
 
       content_type 'application/octet-stream'
     end
-
-    # require_relative '../lib/spirit/master'
-    # require_relative '../lib/spirit/package'
-    # require_relative '../lib/spirit/script'
-    # require_relative '../lib/spirit/log'
-    # require_relative '../lib/spirit/workflow'
-    # require_relative '../lib/spirit/copy_file'
-    # require_relative '../lib/spirit/computer'
-    # require_relative '../lib/spirit/computer_group'
 
     Computer.path = File.join(settings.repo_path, 'Databases', 'ByHost')
     Computer.primary_key = settings.server['repository']['hostPrimaryKey']
