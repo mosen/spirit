@@ -52,25 +52,59 @@ describe '/masters', use_fakefs: true do
 
     it_behaves_like 'a binary plist response'
 
-    it 'contains one key for each image' do
+    context 'with parsed plist response' do
+      it 'contains one key for each mock image' do
+        expect(plist_hash).to have_key('mock.hfs.dmg')
+        expect(plist_hash).to have_key('Windows7-x64-bootcamp4.i386.disk0s3.ntfs.dmg')
+      end
 
+      it 'does not contain other NTFS image elements such as the BCD' do
+        expect(plist_hash).to_not have_key('Windows7-x64-bootcamp4.i386.disk0s3.bcd')
+        expect(plist_hash).to_not have_key('Windows7-x64-bootcamp4.i386.disk0s3.bootstrap')
+        expect(plist_hash).to_not have_key('Windows7-x64-bootcamp4.i386.disk0s3.id')
+      end
+
+      it 'does not contain the mock image with incorrect naming protocol' do
+        expect(plist_hash).to_not have_key('wrongextension.dmg')
+      end
+
+      it 'contains the mock image with a valid `filesystem` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('filesystem')
+        expect(plist_hash['mock.hfs.dmg']['filesystem']).to eql('HFS')
+      end
+
+      it 'contains the mock image with a valid `modificationdate` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('modificationdate')
+        expect(plist_hash['mock.hfs.dmg']['modificationdate']).to be_a_kind_of(Time)
+      end
+
+      it 'contains the mock image with a valid `size` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('size')
+        expect(plist_hash['mock.hfs.dmg']['modificationdate']).to be_a_kind_of(String)
+        # TODO: expect match regex for 4000.1 (MB)
+      end
+
+      it 'contains the mock image with a valid `creationdate` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('creationdate')
+        expect(plist_hash['mock.hfs.dmg']['creationdate']).to be_a_kind_of(Time)
+      end
+
+      it 'contains the mock image with a valid `architecture` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('architecture')
+        expect(plist_hash['mock.hfs.dmg']['architecture']).to eql('PC')
+      end
+
+      # TODO: Must test for URI when repo is hosted elsewhere
+      it 'contains the mock image with a valid `path` key' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('path')
+        expect(plist_hash['mock.hfs.dmg']['path']).to eql(File.join(MASTERS_MOCK_PATH, 'HFS', 'mock.hfs.dmg'))
+      end
+
+      it 'contains the mock image with a valid `name` key that matches the filename' do
+        expect(plist_hash['mock.hfs.dmg']).to have_key('name')
+        expect(plist_hash['mock.hfs.dmg']['name']).to eql('mock.hfs.dmg')
+      end
     end
-
-    it 'does not contain keys for files with the incorrect naming scheme' do
-
-    end
-
-    it 'each entry contains the following keys' do
-      # filesystem HFS or NTFS usually
-      # modificationdate - Date
-      # size - String megabytes to one decimal place 4000.1
-      # creationdate - Date
-      # architecture - for mac "PC" (cant confirm if theres a "PPC" option), for PC i386 (cant confirm x64)
-      # path - Fully qualified path to the image, if local the full path starting at root
-      # name - Display name, basically the filename
-    end
-
-
   end
 
   describe '/get/all?keywords=HFS' do
@@ -79,7 +113,33 @@ describe '/masters', use_fakefs: true do
     end
 
     it_behaves_like 'a binary plist response'
+
+    context 'with parsed plist response' do
+      it 'does not contain any entries that have a filesystem other than HFS' do
+        plist_hash.each do |k,v|
+          expect(v['filesystem']).to eql('HFS')
+        end
+      end
+    end
   end
+
+  describe '/get/all?keywords=NTFS' do
+    before do
+      get '/masters/get/all', { 'keywords' => 'NTFS' }
+    end
+
+    it_behaves_like 'a binary plist response'
+
+    context 'with parsed plist response' do
+      it 'does not contain any entries that have a filesystem other than NTFS' do
+        plist_hash.each do |k,v|
+          expect(v['filesystem']).to eql('NTFS')
+        end
+      end
+    end
+  end
+
+  # Note: the FAT and DEV filesystems have been omitted intentionally. I dont have a test setup for these.
 
   describe '/get/entry' do
 
@@ -162,6 +222,8 @@ describe '/masters', use_fakefs: true do
   end
 
   # TODO: Set access group on Master
+
+  # TODO: Test actions taken by runtime creating new masters
 
   describe '/workinprogress/finalize' do
 
