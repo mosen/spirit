@@ -37,15 +37,16 @@ gem 'sinatra-contrib', '1.4.2'
 # Required for parsing and constructing plists
 gem 'CFPropertyList'
 
-# To run RSpec against padrino
-gem 'rspec-padrino'
-
-# Generate RSpec fixtures
-gem 'factory_girl'
-
-# Used to fake an existing DS repository in RSpec examples.
-gem 'fakefs', :require => "fakefs/safe"
-
-
 # Announce deploystudio service on local subnet
 gem 'dnssd'
+
+group :test do
+  # To run RSpec against padrino
+  gem 'rspec-padrino'
+
+  # Generate RSpec fixtures
+  gem 'factory_girl'
+
+  # Used to fake an existing DS repository in RSpec examples.
+  gem 'fakefs', :require => "fakefs/safe"
+end
