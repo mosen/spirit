@@ -31,7 +31,7 @@ describe '/computers/status' do
 
       it 'contains a valid date of last update' do
         expect(plist_hash[host_status.identifier]).to have_key('date')
-        expect(plist_hash[host_status.identifier]['date']).to be_a(DateTime)
+        expect(plist_hash[host_status.identifier]['date']).to be_a_kind_of(Time)
       end
 
       it 'contains the DSRemoteStatusHostInformation key' do
