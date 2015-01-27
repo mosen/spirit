@@ -23,6 +23,7 @@ Spirit::App.controllers :masters do
   post '/del/entry' do
     master = Spirit::Master.new params[:id]
     Spirit::Master.delete(master)
+    Spirit::Master.rebuild_keywords
 
     201
   end
@@ -30,6 +31,7 @@ Spirit::App.controllers :masters do
   post '/ren/entry' do
     master = Spirit::Master.new params[:id]
     master.rename! params[:new_id]
+    Spirit::Master.rebuild_keywords
 
     201
   end

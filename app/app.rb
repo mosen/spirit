@@ -74,6 +74,9 @@ module Spirit
     ComputerGroup.groups_plist = File.join(settings.repo_path, 'Databases', 'ByHost', 'group.settings.plist')
 
     Master.path = File.join(settings.repo_path, 'Masters')
+    logger.info 'Scanning for new images and building keywords list...'
+    Master.rebuild_keywords
+
     Package.path = File.join(settings.repo_path, 'Packages')
     CopyFile.path = File.join(settings.repo_path, 'Files')
     Script.path = File.join(settings.repo_path, 'Scripts')

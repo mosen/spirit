@@ -187,7 +187,9 @@ describe '/masters', use_fakefs: true do
     end
 
     it 'should ensure that the key is removed from keywords.plist' do
-
+      keywords_plist = CFPropertyList::List.new(:file => File.join(MASTERS_MOCK_PATH, 'keywords.plist'))
+      keywords = CFPropertyList.native_types(keywords_plist.value)
+      expect(keywords.include?('mock.hfs.dmg')).to be false
     end
   end
 
@@ -204,7 +206,10 @@ describe '/masters', use_fakefs: true do
     end
 
     it 'renames the entry in keywords.plist' do
-
+      keywords_plist = CFPropertyList::List.new(:file => File.join(MASTERS_MOCK_PATH, 'keywords.plist'))
+      keywords = CFPropertyList.native_types(keywords_plist.value)
+      expect(keywords).to_not include('mock.hfs.dmg')
+      expect(keywords).to include('mock_renamed.hfs.dmg')
     end
   end
 
@@ -221,7 +226,7 @@ describe '/masters', use_fakefs: true do
       # To unpublish or publish a master, a bplist is given with key 'status' and value string of DISABLED or ENABLED
       # At the root of the masters dir is a plist containing a cached listing of all the masters in the same structure as
       # /get/all. If you disable an image, the relevant entry gets a status -> "DISABLED" kv pair. it gets deleted if you re-enable the image
-      post '/masters/set/entry', bplist_master_disable, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+      post '/masters/set/entry?id=mock.hfs.dmg', bplist_master_disable, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
     end
 
     it_behaves_like 'a successful post'
@@ -239,9 +244,21 @@ describe '/masters', use_fakefs: true do
   end
 
   describe '/set/entry keywords' do
-    # POST's a keywords -> string dict.
-    # For the relevant entry in keywords.plist, sets a key called keywords with a string value
+    let(:bplist_master_newkeywords) {
+      { 'keywords' => 'foo bar baz' }.to_plist(plist_format: CFPropertyList::List::FORMAT_BINARY)
+    }
 
+    before do
+      # POST's a keywords -> string dict.
+      # For the relevant entry in keywords.plist, sets a key called keywords with a string value
+      post '/masters/set/entry?id=mock.hfs.dmg', bplist_master_newkeywords, { 'CONTENT_TYPE' => 'text/xml;charset=utf8' }
+    end
+
+    it_behaves_like 'a successful post'
+
+    it 'should set the keywords property of the mock image to the given string' do
+
+    end
   end
 
   # TODO: Set access group on Master

@@ -1,9 +1,9 @@
-require_relative 'plist_model'
+require_relative 'file_model'
 require 'CFPropertyList'
 
 module Spirit
 
-  class Master < PlistModel
+  class Master < FileModel
 
     class << self
 
@@ -50,7 +50,7 @@ module Spirit
           result.merge(self.scan(fs))
         end
 
-        keywords_plist = keywords.to_plist()
+        keywords_plist = keywords.to_plist
 
         File.open(File.join(@path, 'keywords.plist'), 'wb') do |fd|
           fd.write(keywords_plist)
@@ -72,6 +72,17 @@ module Spirit
         end
 
         results
+      end
+    end
+
+    def initialize(name)
+      @name = name
+      @ext = ''
+
+      %w{HFS NTFS FAT DEV}.each do |fs|
+        if File.exists?(File.join(self.class.path, fs, name))
+          @path = File.join(self.class.path, fs, name)
+        end
       end
     end
 
