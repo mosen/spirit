@@ -1,7 +1,6 @@
 require 'yaml'
 require 'cfpropertylist'
 require 'sinatra/config_file'
-require_relative './lib/rack/dnssd'
 
 module Spirit
   class App < Padrino::Application

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_examples_http'
+require 'shared_contexts'
 require 'cfpropertylist'
 
 MASTERS_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Masters')
@@ -53,6 +54,8 @@ describe '/masters', use_fakefs: true do
     it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
       it 'contains one key for each mock image' do
         expect(plist_hash).to have_key('mock.hfs.dmg')
         expect(plist_hash).to have_key('Windows7-x64-bootcamp4.i386.disk0s3.ntfs.dmg')
@@ -80,7 +83,7 @@ describe '/masters', use_fakefs: true do
 
       it 'contains the mock image with a valid `size` key' do
         expect(plist_hash['mock.hfs.dmg']).to have_key('size')
-        expect(plist_hash['mock.hfs.dmg']['modificationdate']).to be_a_kind_of(String)
+        expect(plist_hash['mock.hfs.dmg']['size']).to be_a_kind_of(String)
         # TODO: expect match regex for 4000.1 (MB)
       end
 
@@ -115,6 +118,8 @@ describe '/masters', use_fakefs: true do
     it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
       it 'does not contain any entries that have a filesystem other than HFS' do
         plist_hash.each do |k,v|
           expect(v['filesystem']).to eql('HFS')
@@ -131,6 +136,8 @@ describe '/masters', use_fakefs: true do
     it_behaves_like 'a binary plist response'
 
     context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
       it 'does not contain any entries that have a filesystem other than NTFS' do
         plist_hash.each do |k,v|
           expect(v['filesystem']).to eql('NTFS')
