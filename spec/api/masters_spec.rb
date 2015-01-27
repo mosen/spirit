@@ -148,6 +148,22 @@ describe '/masters', use_fakefs: true do
 
   # Note: the FAT and DEV filesystems have been omitted intentionally. I dont have a test setup for these.
 
+  describe '/get/all?keywords=mock' do
+    before do
+      get '/masters/get/all', { 'keywords' => 'mock' }
+    end
+
+    it_behaves_like 'a binary plist response'
+
+    context 'with parsed plist response' do
+      include_context 'with parsed plist response'
+
+      it 'contains only the mock image' do
+        plist_hash.include?('mock.hfs.dmg')
+      end
+    end
+  end
+
   describe '/get/entry' do
 
   end

@@ -1,11 +1,15 @@
 Spirit::App.controllers :masters do
 
   get '/get/all' do
-    filesystem = params[:keywords]
+    client_id = params[:id]
+    # Keywords may be either:
+    # - A custom search term to match against filenames
+    # - A custom search term to match against the values of the keywords property
+    # - A reserved capitalised term indicating the filesystem: "HFS", "NTFS", "DEV"
+    keywords = params[:keywords]
 
-    list = Spirit::Master.all_dict(filesystem)
-
-    list.to_plist
+    results = Spirit::Master.all_dict(keywords)
+    results.to_plist
   end
 
   get '/get/entry' do
