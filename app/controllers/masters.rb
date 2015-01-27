@@ -40,6 +40,8 @@ Spirit::App.controllers :masters do
     500
   end
 
+  # Change keyword or status values in the keywords.plist "database"
+  # Can post a bplist with { status => DISABLED } or { keywords => "foo bar baz" }
   post '/set/entry' do
     500
   end

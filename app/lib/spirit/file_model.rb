@@ -57,9 +57,10 @@ module Spirit
 
     # Rename to new filename
     def rename!(name)
-      File.rename(@path, File.join(self.class.path, name+@ext))
+      renamed = File.join(File.dirname(@path), name+@ext)
+      File.rename(@path, renamed)
       @name = name
-      @path = File.join(self.class.path, name+@ext)
+      @path = renamed
     end
 
     # Does the file exist?
