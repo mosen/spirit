@@ -1,5 +1,5 @@
 require_relative 'file_model'
-require 'CFPropertyList'
+require 'cfpropertylist'
 
 module Spirit
 
