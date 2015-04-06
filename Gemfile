@@ -35,10 +35,10 @@ gem 'padrino', '0.12.4'
 gem 'sinatra-contrib', '1.4.2'
 
 # Required for parsing and constructing plists
-gem 'CFPropertyList'
+gem 'CFPropertyList', '2.3.1'
 
 # Announce deploystudio service on local subnet
-gem 'dnssd'
+gem 'dnssd', '2.0.1'
 
 group :test do
   # To run RSpec against padrino
