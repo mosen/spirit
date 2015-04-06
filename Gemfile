@@ -35,7 +35,7 @@ gem 'padrino', '0.12.4'
 gem 'sinatra-contrib', '1.4.2'
 
 # Required for parsing and constructing plists
-gem 'cfpropertylist'
+gem 'CFPropertyList'
 
 # Announce deploystudio service on local subnet
 gem 'dnssd'
