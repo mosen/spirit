@@ -125,9 +125,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  CFPropertyList
+  CFPropertyList (= 2.3.1)
   activerecord
-  dnssd
+  dnssd (= 2.0.1)
   factory_girl
   fakefs
   padrino (= 0.12.4)
