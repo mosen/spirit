@@ -25,6 +25,8 @@ module Spirit
             next
           rescue CFFormatError
             logger.error "Failed to parse property list at path: #{filename}"
+          rescue IOError
+            logger.error "Failed to open property list at path: #{filename}"
           end
         end
 

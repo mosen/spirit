@@ -50,7 +50,7 @@ module Spirit
 
     # Set contents (automatically overwriting original)
     def contents=(contents)
-      File.open(@path, File::WRONLY|File::CREAT) do |f|
+      File.open(@path, 'wb+') do |f|
         f.write(contents)
       end
     end

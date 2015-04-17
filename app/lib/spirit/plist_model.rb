@@ -24,7 +24,7 @@ module Spirit
         plist = CFPropertyList::List.new(:data => File.read(@path))
         plist.to_str
       else
-        plist = CFPropertyList::List.new(:data => Hash.new())
+        plist = CFPropertyList::List.new(:data => Hash.new)
         plist.to_str
       end
     end
