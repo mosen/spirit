@@ -39,9 +39,6 @@ Padrino.before_load do
   # Padrino.dependency_paths << Padrino.root('lib', 'padrino', '*.rb')
 end
 
-##
-# Add your after (RE)load hooks here
-#
 Padrino.after_load do
 end
 

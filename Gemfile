@@ -23,14 +23,6 @@ gem 'activerecord', :require => "active_record"
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
 
-# Or Padrino Edge
-# gem 'padrino', :github => 'padrino/padrino-framework'
-
-# Or Individual Gems
-# %w(core gen helpers cache mailer admin).each do |g|
-#   gem 'padrino-' + g, '0.11.4'
-# end
-
 # Sinatra-contrib for YAML config
 gem 'sinatra-contrib', '1.4.2'
 

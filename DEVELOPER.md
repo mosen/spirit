@@ -2,6 +2,11 @@
 
 Mostly notes to myself.
 
+- Failing API:
+Drag package to set
+/packages/sets/add/entry?id=Packages%20Set%202&pkg=FreezeHomedirs_v1.6.11.mpkg
+
+
 - DNSSD registration so that Admin/Assistant show the spirit server as valid deploystudio hosts on the local subnet
 
 Bootup checklist:
