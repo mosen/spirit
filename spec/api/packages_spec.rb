@@ -4,12 +4,13 @@ require 'cfpropertylist'
 
 PACKAGES_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Packages')
 
-describe '/packages', use_fakefs: true do
+describe '/packages', use_fakefs: false do
 
   def mock_packages
     FileUtils.mkdir_p PACKAGES_MOCK_PATH
     Dir.mkdir(File.join(PACKAGES_MOCK_PATH, 'MockPackageSet'))
     Dir.mkdir(File.join(PACKAGES_MOCK_PATH, 'MockPackageSet', 'Mock.pkg'))
+    Dir.mkdir(File.join(PACKAGES_MOCK_PATH, 'MockPackageSet', 'Mock.pkg', 'Contents'))
   end
 
   before(:each) do

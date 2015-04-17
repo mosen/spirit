@@ -43,7 +43,18 @@ Spirit::App.controllers :masters do
   # Change keyword or status values in the keywords.plist "database"
   # Can post a bplist with { status => DISABLED } or { keywords => "foo bar baz" }
   post '/set/entry' do
-    500
+    if @request_payload.include? 'status'
+      # Image is marked as disabled by setting status => DISABLED in keywords.plist
+      # It can be re-enabled by removing that key
+      logger.warn 'Setting Status Not Yet Implemented'
+    end
+
+    if @request_payload.include? 'keywords'
+      master = Spirit::Master.new params[:id]
+      master.keywords = @request_payload['keywords']
+    end
+
+    201
   end
 
   post '/workinprogress/finalize' do

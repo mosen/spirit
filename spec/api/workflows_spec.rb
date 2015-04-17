@@ -4,6 +4,18 @@ require 'cfpropertylist'
 
 describe '/workflows', use_fakefs: true do
 
+  def mock_workflows
+    repo = File.expand_path(__FILE__ + '/../../../ds_repo/')
+
+    FileUtils.mkdir_p repo + '/Databases'
+    FileUtils.mkdir_p repo + '/Databases/Workflows'
+
+  end
+
+  before(:each) do
+    mock_workflows
+  end
+
   describe '/get/all' do
     before do
       get '/workflows/get/all', { 'id' => 'W1111GTM4QQ', 'groups' => '(null)' }

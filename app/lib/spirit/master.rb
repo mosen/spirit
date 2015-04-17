@@ -87,6 +87,18 @@ module Spirit
       end
     end
 
+    # Set keywords associated with this master
+    def keywords=(keywords)
+      plist = CFPropertyList::List.new(:data => File.read(File.join(self.class.path, 'keywords.plist')))
+      if plist.include? @name
+        plist[@name]['keywords'] = keywords
+        plist.save(File.join(self.class.path, 'keywords.plist'))
+        plist
+      else
+        raise Exception('No keyword matches the master image requested')
+      end
+    end
+
   end
 
 end
