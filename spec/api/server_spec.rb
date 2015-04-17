@@ -5,6 +5,22 @@ require 'cfpropertylist'
 
 describe '/server', use_fakefs: true do
 
+  def mock_server
+    # When stats are generated, a file is saved at Masters/keywords.plist
+    # So this must be writable in FakeFS
+    repo = File.expand_path(__FILE__ + '/../../../ds_repo')
+
+    FileUtils.mkdir_p repo + '/Masters'
+    FileUtils.mkdir_p repo + '/Packages'
+    FileUtils.mkdir_p repo + '/Scripts'
+    FileUtils.mkdir_p repo + '/Databases/Workflows'
+  end
+
+  before(:each) do
+    mock_server
+  end
+
+
   describe '/get/date' do
 
   end
@@ -20,7 +36,7 @@ describe '/server', use_fakefs: true do
       include_context 'with parsed plist response'
 
       it 'contains the version spirit is developing against' do
-        expect(plist_hash['version']).to eql('1.6.12')
+        expect(plist_hash['version']).to eql('1.6.13')
       end
 
       it 'contains a host_ip key' do

@@ -47,6 +47,7 @@ module Spirit
       # This is used instead of our own database index to keep compatibility with DS.
       def rebuild_keywords()
         keywords = %w{DEV FAT HFS NTFS PC}.inject({}) do |result, fs|
+          next result unless Dir.exists? File.join(@path, fs)
           result.merge(self.scan(fs))
         end
 

@@ -2,8 +2,19 @@ require 'spec_helper'
 require 'shared_examples_http'
 require 'cfpropertylist'
 
+PACKAGES_MOCK_PATH = File.expand_path(__FILE__ + '/../../../ds_repo/Packages')
+
 describe '/packages', use_fakefs: true do
 
+  def mock_packages
+    FileUtils.mkdir_p PACKAGES_MOCK_PATH
+    Dir.mkdir(File.join(PACKAGES_MOCK_PATH, 'MockPackageSet'))
+    Dir.mkdir(File.join(PACKAGES_MOCK_PATH, 'MockPackageSet', 'Mock.pkg'))
+  end
+
+  before(:each) do
+    mock_packages
+  end
 
   describe '/get/all' do
     before do

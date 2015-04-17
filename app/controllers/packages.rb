@@ -42,7 +42,7 @@ Spirit::App.controllers :packages do
     set_name = params[:id]
     keywords = params[:keywords]
 
-    puts 'Fetch set %s' % set_name
+    logger.debug('Fetch set %s' % set_name)
 
     Spirit::Package.all_dict(set_name).to_plist
   end
